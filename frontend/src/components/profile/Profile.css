@@ -1,0 +1,62 @@
+.myprofile{
+  padding: 40px 45px;
+  background: #d8d8d8;
+  height: 100%;
+  width: 100%;
+}
+
+.myprofile h1{
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.myprofile h3{
+color: #888;
+}
+
+.profile-info{
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.profile-detail{
+  width: 50%;
+  background-color: #fff;
+  padding:20px  25px 30px 25px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Optional: Add a shadow to the navbar */
+
+}
+.profile-detail h3{
+color: black;
+}
+
+hr{
+  margin: 20px 0px;
+}
+.profile-detail h2{
+  font-size: 20px;
+}
+
+form Input{
+  margin: 10px 0px;
+}
+
+@media(max-width:745px) {
+  .profile-info{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .profile-detail{
+    width: 100%;
+  }
+}
+
+@media(max-width:530px) {
+  .myprofile{
+    padding: 25px 20px;
+  }
+}

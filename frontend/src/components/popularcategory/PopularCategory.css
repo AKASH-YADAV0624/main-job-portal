@@ -1,0 +1,141 @@
+.category-container{
+    width: 100%;
+    margin: 0 auto;
+    padding: 110px 110px 110px 110px;
+}
+
+.category-container h1{
+    font-size: 30px;
+}
+
+.all-category-boxes{
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% + 20px);
+    left: -10px;
+    position: relative;
+}
+
+.category-box {
+    width: calc(25% - 20px);
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    text-align: left;
+    padding: 25px;
+    border-radius: 4px;
+    transition: 0.35s;
+    background: #f8f8f8;
+    margin: 10px;
+    position: relative;
+    box-sizing: border-box;
+}
+.category-box a{
+    text-decoration: none;
+}
+.category-box:hover{
+    background: #28b661;    
+}
+.category-box:hover .icon{
+color: #fff;    
+}
+.category-box:hover .category-head  h2{
+    color: #fff;    
+    }
+
+.category-head  h2  {
+    font-size: 15px;
+    font-weight: 400;
+    color: #333;
+    margin: 0;
+    padding: 0; /* Adjust padding if necessary */
+    line-height: 23px;
+    transition: 0.35s;
+    width: 100%;
+    text-decoration: none;
+    height: auto;
+}
+
+.category-head{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    height: auto;
+   
+}
+
+.icon{
+    height: 30px;
+    color: #28b661;
+
+}
+
+
+
+
+.category-box span{
+    color: #909090;
+    transition: 0.35s;
+    margin-bottom: 18px;
+    align-items: end;
+    padding-left: 15px;
+    background: transparent !important;
+    font-size: 48px;
+    opacity: 0.18;
+    display: inline-block;
+    position: absolute;
+    right: 25px;
+    top: 20%;
+    font-weight: 500;
+}
+
+.browse{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+.browse-button{
+    background: #28b661;
+    border-radius: 3px;
+    padding: 12px 18px;
+    box-shadow: 0 4px 12px rgba(40, 182, 97, 0.25);
+    border: none;
+}
+
+.browse-button a{
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+@media (max-width:1024px) {
+    .category-container {
+        padding: 30px;
+    }
+
+
+}
+@media (max-width:801px) {
+    .category-container {
+        padding: 30px;
+    }
+
+    .category-box{
+        width: 40%;
+    }
+    .all-category-boxes {
+        width: 100%;
+        position: initial;
+    }
+
+
+}
+
+@media (max-width:511px) {
+    .category-box{
+        width: 100%;
+    }
+}

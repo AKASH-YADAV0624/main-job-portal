@@ -1,0 +1,17 @@
+.recent-jobs{
+  
+    width: 100%;
+    margin: 0 auto;
+    padding: 110px 110px 110px 110px;
+}
+
+.recent-jobs h1{
+    font-size: 30px;
+}
+
+@media(max-width:1024px) {
+    .recent-jobs{
+        padding: 20px;
+    }
+}
+

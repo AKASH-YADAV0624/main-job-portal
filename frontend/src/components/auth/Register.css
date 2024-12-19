@@ -1,0 +1,20 @@
+.register-btn{
+   color:#888888;
+   background-color: #F5F5F5;
+}
+
+.register-btn:hover{
+    color: #28b661;
+    background-color: #c9f0c9;
+}
+
+.checkbox{
+    display: flex;
+    gap: 3px;
+    color:#888888;
+}
+
+.checkbox span{
+    color: #28b661;
+}
+
