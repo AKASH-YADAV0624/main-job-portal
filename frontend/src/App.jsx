@@ -29,11 +29,7 @@ import CompanyDescription from './components/CompanyDescription';
 import BrowseCandidates from './components/BrowseCandidate';
 import CandidateDescription from './components/CandidateDescription';
 import BrowseCandidateHalfMap from './components/BrwoseCandidateHalfMap';
-<<<<<<< HEAD
-//import UpdateJob from './components/admin/updateJob';
-=======
 import UpdateJob from './components/admin/UpdateJob.jsx';
->>>>>>> c5585adfb4752ae9a0d9562cc19529351792fe09
 import DuplicateJob from './components/admin/DuplicateJob';
 import AdminDashboard from './components/AdminDashboard';
 import UpdateJob from './components/admin/UpdateJob.jsx';
