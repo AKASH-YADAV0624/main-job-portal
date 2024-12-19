@@ -29,7 +29,7 @@ import CompanyDescription from './components/CompanyDescription';
 import BrowseCandidates from './components/BrowseCandidate';
 import CandidateDescription from './components/CandidateDescription';
 import BrowseCandidateHalfMap from './components/BrwoseCandidateHalfMap';
-import UpdateJob from './components/admin/updateJob';
+import UpdateJob from './components/admin/updateJob.jsx';
 import DuplicateJob from './components/admin/DuplicateJob';
 import AdminDashboard from './components/AdminDashboard';
 // Assuming userRole comes from context or props
