@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import store from "@/redux/store";
 import { faFile, faMountainSun, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 // yha pr check lgana hai ki if candidate h toh yeh ayega dashboard me or employer hai toh yehhhhh
 const Dashboard=()=>{
     
@@ -12,6 +13,36 @@ const Dashboard=()=>{
     const {user}=useSelector(store=>store.auth);
 return(
     <div>
+        <HelmetProvider>
+        <Helmet>
+        <title>Dashboard - findmycareer.co.in</title>
+        <meta
+          name="description"
+          content="View your personalized dashboard on FindMyCareer. Manage your applications, job listings, and activity."
+        />
+         <meta name="keywords" content="Register, Find My Career, Job portal, Candidate register, Employer register, Job applications, play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986" />
+        <meta name="author" content="findmycareer.co.in" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow" />
+       
+        <meta property="og:title" content="Dashboard - findmycareer.co.in" />
+        <meta
+          property="og:description"
+          content="View your personalized dashboard on FindMyCareer. Manage your applications, job listings, and activity."
+        />
+        <meta property="og:image" content="/logo.png" />
+        <meta property="og:url" content="https://findmycareer.co.in/dashboard" />
+        <meta name="twitter:title" content="Dashboard - findmycareer.co.in" />
+        <meta
+          name="twitter:description"
+          content="View your personalized dashboard on FindMyCareer. Manage your applications, job listings, and activity."
+        />
+        <meta name="twitter:image" content="/logo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
+
+        </HelmetProvider>
         <Header/>
         <div className="flex max1024:flex-none">
             <div className="h-full w-1/5 max1024:w-0">

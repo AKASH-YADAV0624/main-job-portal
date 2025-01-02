@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const CompanyContainer=({company})=>{
     const navigate=useNavigate();
     return(
+        <>
+      
         <div onClick={()=>navigate(`/companydescription/${company?._id}`)} className="flex p-5 cursor-pointer rounded-md shadow-xl bg-white border border-gray-100 cursor pointer  my-4 mx-4">
             <div className="flex items-center gap-2 my-2 pr-2.5 max560:p-[0px_10px] max650:h-fit ">
               
@@ -27,6 +29,7 @@ const CompanyContainer=({company})=>{
             </div>
             </div>
         </div>
+        </>
     )
 }
 

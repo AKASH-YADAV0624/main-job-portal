@@ -15,6 +15,7 @@ import useGetAllAdminJobs from "@/hooks/useGetAllAdminJobs";
 import  Select  from 'react-select'
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const SubmitJobs=()=>{ // Get the jobId from the URL
   useGetAllAdminJobs()
@@ -102,6 +103,30 @@ const SubmitJobs=()=>{ // Get the jobId from the URL
 
     return(
         <div>
+          <HelmetProvider>
+          <Helmet>
+        <title>Post a Job -findmycareer.co.in</title>
+        <meta name="description" content="Post a job to your platform. Fill out job details, salary, location, and more. Suitable for employers to list job openings." />
+        <meta name="keywords" content="Post a job, Admin dashboard, Job posting, Employer, Job listings, Submit job details , play boy jobs , callboy job , asex boy job" />
+        <meta name="author" content="findmycareer.co.in" />
+        <meta name="robots" content="noindex, nofollow" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta property="og:title" content="Post a Job - findmycareer.co.in" />
+  <meta property="og:description" content="Post a job to your platform. Fill out job details, salary, location, and more. Suitable for employers to list job openings." />
+  <meta property="og:image" content="https://findmycareer.co.in/path-to-image.jpg" />
+  <meta property="og:url" content="https://findmycareer.co.in/admin/submitjobs" />
+  <meta property="og:type" content="website" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Post a Job - findmycareer.co.in" />
+  <meta name="twitter:description" content="Post a job to your platform. Fill out job details, salary, location, and more." />
+  <meta name="twitter:image" content="https://findmycareer.co.in/path-to-image.jpg" />
+  
+  <link rel="canonical" href="https://findmycareer.co.in/admin/submitjobs" />
+      </Helmet>
+      </HelmetProvider>
         <Header/>
         <div className="flex">
         <div className="h-full w-1/5 max1024:w-0">

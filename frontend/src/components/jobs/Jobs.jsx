@@ -27,13 +27,79 @@ const Jobs = () => {
     const matchesCategory = searchedCategory ? job.category === searchedCategory : true;
     return matchesQuery && matchesCategory;
   });
-
+     // Job Posting Schema for ItemList
+  const jobListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Job Listings",
+    "description": `Find and apply to job opportunities in findmycareer like ${searchedCategory || 'All Categories'}.`,
+    "itemListElement": filteredJobs.map((job, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "JobPosting",
+        "title": job.title,
+        "description": job.description,
+        "datePosted": job.datePosted,
+        "employmentType": job.employmentType,
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": "Find My Career",
+          "sameAs": "https://findmycareer.co.in"
+        },
+        "jobLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": job.location,
+            "addressCountry": "IN"
+          }
+        },
+        "jobBenefits": job.benefits,
+        "salary": {
+          "@type": "MonetaryAmount",
+          "currency": "INR",
+          "value": {
+            "@type": "QuantitativeValue",
+            "value": job.salary,
+            "unitText": "MONTH"
+          }
+        }
+      }
+    }))
+  };
   return (
     <div className="w-full h-full">
       <HelmetProvider>
        <Helmet>
-        <title>Find Jobs | Search and Apply for Opportunities</title>
-        <meta name="description" content={`Find the best job opportunities in your field. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
+       <title>Find Jobs | Search and Apply for Opportunities - findmycareer.co.in</title>
+          <meta name="description" content={`Find the best job opportunities in your field on findmycareer.co.in. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
+          <meta name="keywords" content={`find jobs, job search, careers, job listings,play boy job, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986  ${searchedCategory || 'all jobs'}`} />
+          <meta name="robots" content="index, follow, max-snippet: -1, max-video-preview: -1, max-image-preview: large" />
+          
+          {/* Open Graph Tags for Social Media Sharing */}
+          <meta property="og:title" content="Find Jobs | Search and Apply for Opportunities  on findmycareer.co.in." />
+          <meta property="og:description" content={`Find the best job opportunities in your field findmycareer.co.in. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
+          <meta property="og:image" content="https://findmycareer.co.in/job-portal-thumbnail.jpg" />
+          <meta property="og:url" content="https://findmycareer.co.in/jobs" />
+
+          {/* Twitter Card Tags for Twitter Sharing */}
+          <meta name="twitter:title" content="Find Jobs | Search and Apply for Opportunities  on findmycareer.co.in." />
+          <meta name="twitter:description" content={`Find the best job opportunities in your field findmycareer.co.in. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
+          <meta name="twitter:image" content="https://findmycareer.co.in/job-portal-thumbnail.jpg" />
+          
+          {/* JSON-LD Schema for Job Postings */}
+          {filteredJobs.length > 0 && (
+            <script type="application/ld+json">
+              {JSON.stringify(jobListSchema)}
+            </script>
+          )}
+
+          {/* Mobile Optimization Viewport */}
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          
+          {/* Canonical Link to Avoid Duplicate Content */}
+          <link rel="canonical" href="https://findmycareer.co.in/jobs" />
       </Helmet>
       </HelmetProvider>
       <Header />

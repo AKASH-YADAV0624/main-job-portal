@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admindashboard/
+Disallow: /login/
+Disallow: /profile/
+Disallow: /dashboard/
+Allow: /jobs/
+Sitemap: https://www.findmycareer.co.in/sitemap.xml

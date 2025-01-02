@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {  COMPANY_API_END_POINT } from "@/utils/constant";
 import { setSingleCompany } from "@/redux/companySlice";
 import { Avatar, AvatarImage } from "./ui/avatar";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const CompanyDescription=()=>{
     const {singleCompany}=useSelector(store=>store.company)
@@ -41,8 +42,64 @@ const CompanyDescription=()=>{
         const timeDifference=currentTime-createdAt;
         return Math.floor(timeDifference/(1000*24*60*60));
     }
+    // LocalBusiness Schema
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": singleCompany?.name,
+    "url": `https://findmycareer.co.in/companydescription/${companyId}`,
+    "logo": singleCompany?.logo,
+    "description": singleCompany?.companyContent,
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": singleCompany?.phoneNumber,
+      "contactType": "Customer Service",
+      "areaServed": "IN",
+      "availableLanguage": "English",
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": singleCompany?.location,
+      "addressLocality": singleCompany?.location,
+      "addressRegion": "IN",
+      "postalCode": "110001",
+    },
+    "sameAs": singleCompany?.website || "findmycareer.co.in",
+  };
     return(
         <div>
+            <HelmetProvider>
+        <Helmet>
+          <title>{`${singleCompany?.name} - findmycareer.co.in`}</title>
+          <meta
+            name="description"
+            content={`${singleCompany?.name} - Explore job opportunities and learn more about this company on FindMyCareer.`}
+          />
+           <meta name="keywords" content={`play boy job, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986`} />
+          
+           <meta name="robots" content="index, follow, max-snippet: -1, max-video-preview: -1, max-image-preview: large" />
+           <link rel="canonical" href={`https://findmycareer.co.in/companydescription/${companyId}`} />
+
+          <meta property="og:title" content={`${singleCompany?.name}  - findmycareer.co.in`} />
+          <meta
+            property="og:description"
+            content={`${singleCompany?.name} - Explore job opportunities and learn more about this company on FindMyCareer.`}
+          />
+          
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:url"
+            content={`https://findmycareer.co.in/companydescription/${companyId}`}
+          />
+          <meta name="twitter:title" content={`${singleCompany?.name} - findmycareer.co.in`} />
+          <meta
+            name="twitter:description"
+            content={`${singleCompany?.name} - Explore job opportunities and learn more about this company on FindMyCareer.`}
+          />
+          <meta name="twitter:card" content="summary" />
+          <script type="application/ld+json">{JSON.stringify(schema)}</script>
+        </Helmet>
+      </HelmetProvider>
             <Header/> 
         <div className="max-w-7xl mx-40 my-10 max1024:mx-5 ">
             <div className="flex justify-between items-center max650:flex-wrap gap-3">

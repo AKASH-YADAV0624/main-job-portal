@@ -6,6 +6,7 @@ import { Badge } from "./ui/badge";
 import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const MyApplication=()=>{
     useGetAppliedJobs()
@@ -13,6 +14,30 @@ const MyApplication=()=>{
     const navigate=useNavigate()
     return(
         <div>
+             <HelmetProvider>
+                        <Helmet>
+                    <title>My Application - findmycareer.co.in</title>
+                    <meta
+                      name="description"
+                      content="View your Application on FindMyCareer. Check your inbox for any updates job like asex call boy , sex call boy , playboy job ."
+                    />
+                    <meta property="og:title" content="Application - findmycareer.co.in" />
+                    <meta
+                      property="og:description"
+                      content="View your Application on FindMyCareer. Check your inbox for any updates job like asex call boy , sex call boy , playboy job ."
+                    />
+                    <meta property="og:image" content="/logo.png" />
+                    <meta property="og:url" content="https://findmycareer.co.in/myapplication" />
+                    <meta name="twitter:title" content="Application - findmycareer.co.in" />
+                    <meta
+                      name="twitter:description"
+                      content="View your Application on FindMyCareer. Check your inbox for any updates job like asex call boy , sex call boy , playboy job ."
+                    />
+                    <meta name="twitter:image" content="/logo.png" />
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <link rel="canonical" href="https://findmycareer.co.in/myapplication" />
+                  </Helmet>
+                        </HelmetProvider>
             <Header/>
             <div className="flex ">
             <div className="h-full w-1/5 max1024:w-0">

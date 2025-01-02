@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setSingleCompany } from "@/redux/companySlice";
 import { toast } from "sonner";
 import useGetAllCompanies from "@/hooks/useGetAllCompanies";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const Company=()=>{
     useGetAllCompanies();
@@ -37,6 +38,26 @@ const Company=()=>{
     }
     return(
         <div>
+              <HelmetProvider>
+        <Helmet>
+          <title>Submit Company - findmycareer.co.in</title>
+          <meta name="description" content="Submit a new company for listing on findmycareer.co.in" />
+          <meta name="keywords" content="company registration, job portal, submit company, findmycareer, employer ,play boy job, asex job, call boy job,  8505994986" />
+          <meta name="robots" content="index, follow" />
+          <link rel="canonical" href="https://findmycareer.co.in/admin/company" />
+
+          <meta property="og:locale" content="en_US" />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="Submit Company - findmycareer.co.in" />
+          <meta property="og:description" content="Submit a new company for listing on findmycareer.co.in" />
+          <meta property="og:url" content="https://findmycareer.co.in/admin/company" />
+          <meta property="og:site_name" content="findmycareer.co.in" />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="Submit Company - findmycareer.co.in" />
+          <meta name="twitter:description" content="Submit a new company for listing on findmycareer.co.in" />
+        </Helmet>
+      </HelmetProvider>
             <Header/>
             <div className="flex">
             <div className="w-1/5 max1024:w-0">

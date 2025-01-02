@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Header from "./shared/Header";
 import { Badge } from "./ui/badge";
 import { faBusinessTime, faCalendarDays, faEnvelope, faLink, faMapLocationDot, faMoneyCheckDollar, faStar, faUserTie } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +13,7 @@ import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from "@/utils/constant";
 import { toast } from "sonner";
 import { addBookmark, removeBookmark } from "@/redux/bookmarkSlice";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const JobDescription=()=>{
     const {singleJob}=useSelector(store=>store.job);
@@ -20,7 +21,7 @@ const JobDescription=()=>{
     const {user}=useSelector(store=>store.auth);
     const isIntiallyApplied=singleJob?.applications?.some(application=>application.applicant ===user?._id) || false;
     const [isApplied,setIsApplied]=useState(isIntiallyApplied)
-    const isBookmark=false;
+  
     const params=useParams();
     const jobId=params.id;
     const dispatch=useDispatch()
@@ -103,15 +104,93 @@ const JobDescription=()=>{
     dispatch(removeBookmark(singleJob._id));
     toast.success("Bookmark removed successfully.");
   };
+
+  const dynamicDescription = useMemo(() => {
+    return `${singleJob?.title || ""} in ${singleJob?.location || ""}. Apply for ${singleJob?.category || ""} Find job opportunities like play boy job, asex job, and more on findmycareer.co.in.`;
+  }, [singleJob]);
+  
+  const dynamicKeywords = useMemo(() => {
+    return [
+      singleJob?.title,
+      singleJob?.category,
+      singleJob?.location,
+      "play boy job",
+      "asex job",
+      "findmycareer",
+      "job portal",
+    ]
+      .filter(Boolean)
+      .join(", ");
+  }, [singleJob]);
+  
+  const generateSchemaMarkup = () => ({
+    "@context": "https://schema.org/",
+    "@type": "JobPosting",
+    title: singleJob?.title || "",
+    description: singleJob?.description || "",
+    employmentType: singleJob?.jobType || "Full-Time",
+    industry: singleJob?.category || "General",
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: singleJob?.location || "Unknown",
+        addressRegion: singleJob?.region || "Unknown",
+        addressCountry: singleJob?.country || "Unknown",
+      },
+    },
+    baseSalary: {
+      "@type": "MonetaryAmount",
+      currency: singleJob?.baseSalary || "USD",
+      value: {
+        "@type": "QuantitativeValue",
+        minValue: singleJob?.minimumSalary || 0,
+        maxValue: singleJob?.maximumSalary || 0,
+        unitText: "MONTH",
+      },
+    },
+    datePosted: daysAgoFunction(singleJob?.createdAt)  || new Date().toISOString().split("T")[0],
+    validThrough: singleJob?.closingDate?.split("T")[0] || "2025-12-31T23:59:59",
+    hiringOrganization: {
+      "@type": "Organization",
+      name: singleJob?.company?.name || "Unknown",
+      sameAs: singleJob?.company?.website || "https://findmycareer.co.in",
+    },
+  });
+  
+  
     return(
         <div>
+         <HelmetProvider>
+        <Helmet>
+          <title>{singleJob?.title  || "Job Description"} - findmycareer.co.in</title>
+          <meta name="description" content={dynamicDescription  || "Find your next career opportunity on findmycareer.co.in"} />
+           <meta name="keywords" content={`play boy job, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986 ,${dynamicKeywords}`} />
+          <meta name="robots" content="index, follow, max-snippet: -1, max-video-preview: -1, max-image-preview: large" />
+         
+          
+          <link rel="canonical" href={`https://findmycareer.co.in/description/${jobId}`} />
+          <meta property="og:locale" content="en_US" />
+          <meta property="og:type" content="article" />
+          <meta property="og:title" content={`${singleJob?.title} - findmycareer.co.in`} />
+          <meta property="og:description" content={dynamicDescription} />
+          <meta property="og:url" content={`https://findmycareer.co.in/description/${jobId}`} />
+          <meta property="og:site_name" content="findmycareer.co.in" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={`${singleJob?.title} - findmycareer.co.in`} />
+          <meta name="twitter:description" content={dynamicDescription} />
+          <script type="application/ld+json">
+      {JSON.stringify(generateSchemaMarkup())}
+    </script>
+        </Helmet>
+      </HelmetProvider>
             <Header/> 
         <div className="max-w-7xl mx-40 my-10  max1024:mx-5 ">
             <div className="flex  justify-between items-center max650:flex-wrap gap-3">
                 <div>
                     <div>
 
-            <h2 className="flex flex-wrap color-gray-400 text-l my-3">{singleJob?.category}</h2>
+            <h2 className="flex flex-wrap color-gray-400 text-l my-3">{singleJob?.category || ""}</h2>
                     </div>
             
             <h1 className="color-black text-2xl">{singleJob?.title}</h1> 
@@ -245,12 +324,20 @@ const JobDescription=()=>{
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                    <FontAwesomeIcon icon={faMoneyCheckDollar}className="text-2xl text-green-800 bg-green-100 px-2 py-2" />    
-                        <div className="my-2">
-                    <h3 className="font-medium  text-black">salary:</h3>
-                    <h3 className="text-gray-500">{singleJob?.minimumSalary} - {singleJob?.maximumSalary} </h3>
-                        </div>
-                    </div>
+  <FontAwesomeIcon
+    icon={faMoneyCheckDollar}
+    className="text-2xl text-green-800 bg-green-100 px-2 py-2"
+  />
+  <div className="my-2">
+    <h3 className="font-medium text-black">Salary:</h3>
+    <h3 className="text-gray-500">
+      {singleJob?.minimumSalary
+        ? `$${singleJob.minimumSalary} - $${singleJob.maximumSalary}`
+        : "Not Specified"}
+    </h3>
+  </div>
+</div>
+
                     </div>
                   
                 </div>

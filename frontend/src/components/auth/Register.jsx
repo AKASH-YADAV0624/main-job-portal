@@ -11,6 +11,7 @@ import { faBriefcase, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../shared/Header";
 import { useSelector } from "react-redux";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 
 const Register=()=>{ const [input,setInput]=useState({
@@ -71,6 +72,35 @@ useEffect(()=>{
 },[])
     return(
         <>
+        <HelmetProvider>
+          <Helmet>
+        <title>Register - findmycareer.co.in</title>
+        <meta name="description" content="Create your Find My Career account to apply for jobs, post job openings, and explore opportunities including play boy job, sex job, and call boy job postings." />
+        <meta name="keywords" content="Register, Find My Career, Job portal, Candidate register, Employer register, Job applications, play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986" />
+        <meta name="author" content="findmycareer.co.in" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow" />
+
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Register - findmycareer.co.in" />
+        <meta property="og:description" content="Sign up for Find My Career to access job postings and opportunities tailored for candidates and employers." />
+        <meta property="og:image" content="https://findmycareer.co.in/path-to-register-image.jpg" />
+        <meta property="og:url" content="https://findmycareer.co.in/register" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Register - findmycareer.co.in" />
+        <meta name="twitter:description" content="Create your account on Find My Career to explore job opportunities and post job openings." />
+        <meta name="twitter:image" content="https://findmycareer.co.in/path-to-register-image.jpg" />
+
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://findmycareer.co.in/register" />
+        {/* Language */}
+        <meta http-equiv="content-language" content="en" />
+      </Helmet>
+      </HelmetProvider>
         <Header/>
         <div className="form flex items-center justify-center max-w-6xl mx-auto max650:mx-2">
         <form onSubmit={submitHandler} className="w-1/2 border border-grey-200 rounded-md p-4 my-10 max650:w-full">
@@ -147,7 +177,7 @@ useEffect(()=>{
           </div>
             <div className="checkbox my-2">
             <input id="html" type="checkbox"/>
-            <label for="html">I agree to the <span>Privacy Policy</span> </label>
+            <label htmlFor="html">I agree to the <span>Privacy Policy</span> </label>
             </div>
 
             <div className="my-5">

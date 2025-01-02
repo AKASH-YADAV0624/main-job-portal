@@ -25,6 +25,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import useGetJobById from "@/hooks/useGetJobById";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const ManageJobs = () => {
   const dispatch=useDispatch()
@@ -112,6 +113,14 @@ const ManageJobs = () => {
 
   return (
     <div>
+      <HelmetProvider>
+       <Helmet>
+        <title>Manage Jobs - findmycareer.co.in</title>
+        <meta name="description" content="Manage all job postings, including editing, duplicating, or deleting jobs. View applications and update job statuses." />
+        <meta name="keywords" content="Manage Jobs, Admin Dashboard, Job Postings, Job Applications, Job Management , play boy job , call boy job" />
+        <meta name="author" content="findmycareer.co.in" />
+      </Helmet>
+      </HelmetProvider>
       <Header />
       <div className="flex ">
         <div className="w-1/5 max1024:w-0">

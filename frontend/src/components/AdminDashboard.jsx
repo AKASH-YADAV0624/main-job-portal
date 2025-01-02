@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ADMIN_API_END_POINT } from "@/utils/constant";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const AdminDashboard = () => {
   const [jobs, setJobs] = useState([]); // State to store pending jobs
@@ -106,6 +107,37 @@ const AdminDashboard = () => {
   };
 
   return (
+    <>
+    <HelmetProvider>
+    <Helmet>
+        <title>Admin Dashboard - Manage Jobs and Companies at findmycareer.co.in</title>
+        <meta
+          name="description"
+          content="Admin dashboard to manage job and company approvals for findmycareer.co.in. Approve or reject pending job listings and company registrations."
+        />
+        <meta
+          name="keywords"
+          content="Admin dashboard, job approval, company approval, admin panel, findmycareer.co.in , play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986 , findmycareer"
+        />
+        <meta name="author" content="findmycareer.co.in" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:title" content="Admin Dashboard - findmycareer.co.in" />
+        <meta
+          property="og:description"
+          content="Admin panel for managing job postings and company registrations on findmycareer.co.in."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://findmycareer.co.in/admindashboard"
+        />
+        <meta
+          property="og:image"
+          content="https://findmycareer.co.in/assets/admindashboard-preview.png"
+        />
+        <link rel="canonical" href="https://findmycareer.co.in/admindashboard" />
+      </Helmet>
+      </HelmetProvider>
     <div className="container mx-auto p-4">
     <h1 className="text-3xl font-bold text-center mb-6">Admin Dashboard</h1>
     
@@ -184,6 +216,7 @@ const AdminDashboard = () => {
       ))
     )}
   </div>
+  </>
 );
 };
 

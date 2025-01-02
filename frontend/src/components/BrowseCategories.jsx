@@ -6,6 +6,7 @@ import Header from "./shared/Header";
 import Job from "./Job";
 import MapComponent from "./MapComponent";
 import { Button } from "./ui/button";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 const BrowseCategories = () => {
   useGetAllJobs();
   const [category, setCategory] = useState("");
@@ -30,6 +31,40 @@ const BrowseCategories = () => {
 
   return (
     <div>
+       <HelmetProvider>
+            <Helmet>
+              <title>Browse Categories - findmycareer.co.in</title>
+              <meta
+                name="description"
+                content="Browse through a list of qualified candidates on FindMyCareer. Search for job candidates based on skills, experience, play boy , callboy and location."
+              />
+              <meta
+                name="keywords"
+                content="candidates, job seekers, find candidates, skilled professionals, play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986, findmycareer"
+              />
+              <meta name="author" content="findmycareer.co.in" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <meta property="og:title" content="Browse Categories - findmycareer.co.in" />
+              <meta
+                property="og:description"
+                content="Browse a wide selection of job categories on FindMyCareer. Find your next hire easily by filtering through qualified candidates."
+              />
+              <meta property="og:type" content="website" />
+              <meta
+                property="og:url"
+                content="https://findmycareer.co.in/browsecategories"
+              />
+              <meta
+                property="og:image"
+                content="https://findmycareer.co.in/assets/categories-preview.png"
+              />
+              <link
+                rel="canonical"
+                href="https://findmycareer.co.in/browsecategories"
+              />
+            </Helmet>
+      
+            </HelmetProvider>
       <Header />
       <div className="flex h-screen ">
         <div className="w-1/2 overflow-auto max-h-screen max650:w-full">

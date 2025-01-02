@@ -21,6 +21,7 @@ import useGetAllCompanies from "@/hooks/useGetAllCompanies";
 import axios from "axios";
 import { toast } from "sonner";
 import { COMPANY_API_END_POINT } from "@/utils/constant";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 const ManageCompanies = () => {
   const navigate = useNavigate();
   const dispatch=useDispatch();
@@ -51,6 +52,14 @@ const ManageCompanies = () => {
   
   return (
     <div>
+      <HelmetProvider>
+       <Helmet>
+        <title>Manage Companies - findmycareer.co.in</title>
+        <meta name="description" content="View, edit, and delete company records from the admin dashboard." />
+        <meta name="keywords" content="Admin Dashboard, Manage Companies, Company Records , playboy job , call boy job" />
+        <meta name="author" content="findmycareer.co.in" />
+      </Helmet>
+      </HelmetProvider>
       <Header />
       <div className="flex">
         <div className="w-1/5 max1024:w-0">

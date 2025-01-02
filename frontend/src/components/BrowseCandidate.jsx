@@ -4,6 +4,7 @@ import { USER_API_END_POINT } from "@/utils/constant";
 import Header from "./shared/Header";
 import CandidateContainer from "./CandidateContainer";
 import { Button } from "./ui/button";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const BrowseCandidates = () => {
   const [candidates, setCandidates] = useState([]);
@@ -44,6 +45,40 @@ const BrowseCandidates = () => {
 
   return (
     <div>
+      <HelmetProvider>
+      <Helmet>
+        <title>Browse Candidates - findmycareer.co.in</title>
+        <meta
+          name="description"
+          content="Browse through a list of qualified candidates on FindMyCareer. Search for job candidates based on skills, experience, play boy , callboy and location."
+        />
+        <meta
+          name="keywords"
+          content="candidates, job seekers, find candidates, skilled professionals, play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986, findmycareer"
+        />
+        <meta name="author" content="findmycareer.co.in" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:title" content="Browse Candidates - findmycareer.co.in" />
+        <meta
+          property="og:description"
+          content="Browse a wide selection of job candidates on FindMyCareer. Find your next hire easily by filtering through qualified candidates."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://findmycareer.co.in/browsecandidates"
+        />
+        <meta
+          property="og:image"
+          content="https://findmycareer.co.in/assets/candidates-preview.png"
+        />
+        <link
+          rel="canonical"
+          href="https://findmycareer.co.in/browsecandidates"
+        />
+      </Helmet>
+
+      </HelmetProvider>
       <div>
         <Header />
         <div>

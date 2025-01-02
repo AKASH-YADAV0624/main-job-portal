@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
 import { setUser } from "@/redux/authSlice";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const Profile=()=>{
 const { user }=useSelector(store=>store.auth);
@@ -109,6 +110,26 @@ const submitHandler= async(e)=>{
 
     return(
         <div>
+            <HelmetProvider>
+                <Helmet>
+                <title>Profile - findmycareer.co.in</title>
+        <meta name="description" content="Manage your profile, update your information, and change your password on FindMyCareer." />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content=" Find My Career, Job portal, play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs, 8505994986" />
+        <meta name="author" content="findmycareer.co.in" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="findmycareer.co.in" />
+        <meta property="og:title" content="Profile - findmycareer.co.in" />
+        <meta property="og:description" content="Update your personal details and change your password on FindMyCareer." />
+        <meta property="og:url" content="https://findmycareer.co.in/profile" />
+        <meta property="og:type" content="https://findmycareer.co.in/" />
+        <meta property="og:image" content="https://findmycareer.co.in/assets/profile-og-image.jpg" />
+        <link rel="canonical" href="https://findmycareer.co.in/profile" />
+    
+                </Helmet>
+            </HelmetProvider>
             <Header/>
             <div className="flex">
                 <div className="h-full w-1/5 max1024:w-0 ">

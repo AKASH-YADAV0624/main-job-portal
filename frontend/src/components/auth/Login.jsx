@@ -8,6 +8,7 @@ import axios from "axios";
 import Header from "../shared/Header";
 import { setLoading, setUser } from "@/redux/authSlice";
 import { useDispatch, useSelector } from 'react-redux';
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const Login=()=>{
     const dispatch = useDispatch();
@@ -57,7 +58,40 @@ const Login=()=>{
       }, [user, navigate]);
 
     return(
-        <>        <Header/>
+        <>  
+        <HelmetProvider>
+        <Helmet>
+        <title>Login - findmycareer.co.in</title>
+        <meta name="description" content="Log in to your Find My Career account. Access job postings, applications, and your profile. For candidates and employers." />
+        <meta name="keywords" content="Login, Find My Career, Job portal, Candidate login, Employer login, Job applications , urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986" />
+        <meta name="author" content="findmycareer.co.in" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow" />
+
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Login - findmycareer.co.in" />
+        <meta property="og:description" content="Log in to your Find My Career account. Access job postings, applications, and your profile. For candidates and employers." />
+        <meta property="og:image" content="https://findmycareer.co.in/path-to-login-image.jpg" />
+        <meta property="og:url" content="https://findmycareer.co.in/login" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Login - findmycareer.co.in" />
+        <meta name="twitter:description" content="Log in to your Find My Career account. Access job postings, applications, and your profile." />
+        <meta name="twitter:image" content="https://findmycareer.co.in/path-to-login-image.jpg" />
+
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://findmycareer.co.in/login" />
+
+      
+
+        {/* Language */}
+        <meta http-equiv="content-language" content="en" />
+      </Helmet>
+      </HelmetProvider>
+              <Header/>
         <div className="form flex items-center justify-center max-w-7xl mx-auto max650:px-2">
         <form onSubmit={submitHandler} className="w-1/2 border border-grey-200 rounded-md p-4 my-10 max650:w-full ">
             <h1 className="font-bold mb-5 font-normal text-2xl">Log In</h1>

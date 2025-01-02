@@ -19,11 +19,11 @@ const ExtraContainer=()=>{
                 
                 <h1 className="text-2xl my-2 text-center">Discovering Opportunities: How a Job Portal Can Transform Your Job Search</h1>
                 <div className="flex-wrap text-center  gap-2 text-gray-400">
-                   <h3 >By call4jobs.com@gmail.com</h3>
+                   <h3 >By findmycareer.co.in</h3>
                    <h3>October 17, 2024</h3>
                    <h3 >Uncategorized</h3>
                 </div>
-                <p className="my-2 text-lg text-gray-500 my-2 flex flex-col items-center text-center">In the digital age, job portals have emerged as essential tools for job seekers, providing a centralized platform that simplifies the often overwhelming process of searching for employment opportunities. These online platforms host a vast array of job listings that cater to various industries, skill levels, and geographical locations. By leveraging a job portal, candidates can access a diverse range of opportunities that they may not discover through traditional methods such as newspaper listings or word-of-mouth referrals.</p>
+                <p className="my-2 text-lg text-gray-500 my-2 flex flex-col items-center text-center">In the digital age, job portals have emerged as essential tools for job seekers,  find job like sex job , play boy job , asex play boy job ,call boy job,8505994986, providing a centralized platform that simplifies the often overwhelming process of searching for employment opportunities. These online platforms host a vast array of job listings that cater to various industries, skill levels, and geographical locations. By leveraging a job portal, candidates can access a diverse range of opportunities that they may not discover through traditional methods such as newspaper listings or word-of-mouth referrals.</p>
                 <p className="my-2 text-lg text-gray-500 my-2  flex-col items-center text-center">One of the significant advantages of utilizing a job portal is the user-friendly search functionality it offers. Job seekers can use filters to narrow down listings by criteria such as job title, location, salary range, or employment type. This enhanced search capability saves valuable time and increases the efficiency of the job search process. Furthermore, many portals provide personalized job alerts, notifying users via email or app notifications when new positions that match their preferences become available. This feature not only keeps seekers informed but also allows them to act promptly, which is crucial in a competitive job market.</p>
                 <Button className="bg-green-500 my-4"><Link to="/Blog" >Read More</Link></Button>
              </div>

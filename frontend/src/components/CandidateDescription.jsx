@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {  COMPANY_API_END_POINT, USER_API_END_POINT } from "@/utils/constant";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { setSingleUser, setUser } from "@/redux/authSlice";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const CandidateDescription=()=>{
     const {singleUser ,user}=useSelector((store)=>store.auth)
@@ -46,6 +47,34 @@ const CandidateDescription=()=>{
   
     return(
         <div>
+
+            <HelmetProvider>
+            <Helmet>
+        <title>{singleUser?.firstName} - Candidate Profile - findmycareer.co.in</title>
+        <meta
+          name="description"
+          content={`${singleUser?.firstName} is a candidate looking for job opportunities. Check out their profile for skills, experience, and resume.`}
+        />
+        <meta
+          name="keywords"
+          content="candidate profile, job seeker, professional, resume, skills, job opportunities, findmycareer , play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986"
+        />
+        <meta name="author" content="Find My Career Team" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:title" content={`${singleUser?.firstName} - Candidate Profile - findmycareer.co.in`} />
+        <meta
+          property="og:description"
+          content={`${singleUser?.firstName} is a talented professional looking for new opportunities. View their profile to know more about their skills and experience.`}
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://findmycareer.co.in/candidatedescription/${userId}`} />
+        <meta
+          property="og:image"
+          content={singleUser?.profile?.avatar || "https://findmycareer.co.in/assets/default-avatar.png"}
+        />
+        <link rel="canonical" href={`https://findmycareer.co.in/candidatedescription/${userId}`} />
+      </Helmet>
+            </HelmetProvider>
             <Header/> 
         <div className="max-w-7xl mx-40 my-10  max1024:mx-5  ">
             <div className="flex justify-between items-center max650:flex-wrap gap-3">

@@ -11,6 +11,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import useGetAllCompanies from "@/hooks/useGetAllCompanies";
 import useGetCompanyById from "@/hooks/useGetCompanyById";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const CompanySetup=()=>{
   const params= useParams();
@@ -84,6 +85,29 @@ const CompanySetup=()=>{
 
     return(
     <div>
+       <HelmetProvider>
+        <Helmet>
+          <title>{singleCompany.name ? `${singleCompany.name} - Company Setup` : "Company Setup - findmycareer.co.in"}</title>
+          <meta
+            name="description"
+            content="Set up your company profile on findmycareer.co.in to attract job seekers."
+          />
+          <meta name="keywords" content="company setup, job portal, employer profile, job opportunities ,play boy job, asex job, call boy job, findmycareer" />
+          <meta name="robots" content="index, follow" />
+          <link rel="canonical" href={`https://findmycareer.co.in/admin/company/${params.id}`} />
+          
+          <meta property="og:locale" content="en_US" />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content={`Company Setup - ${singleCompany.name || "findmycareer.co.in"}`} />
+          <meta property="og:description" content="Set up your company profile on findmycareer.co.in to attract job seekers." />
+          <meta property="og:url" content={`https://findmycareer.co.in/admin/company/${params.id}`} />
+          <meta property="og:site_name" content="findmycareer.co.in" />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={`Company Setup - ${singleCompany.name || "findmycareer.co.in"}`} />
+          <meta name="twitter:description" content="Set up your company profile on findmycareer.co.in to attract job seekers." />
+        </Helmet>
+      </HelmetProvider>
     <Header/>
     <div className="flex">
     <div className="w-1/5 max1024:w-0">
