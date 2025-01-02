@@ -74,8 +74,8 @@ const Header = () => {
           </span>
           {candidateDropdown && (
             <div className="dropdown-menu">
-              <Link to="/Jobs">Browse Jobs</Link>
-              <Link to="/admin/browsecompanies">Browse Companies</Link>
+              <Link to="/jobs">Browse Jobs</Link>
+              <Link to="/browsecompanies">Browse Companies</Link>
               <Link to="/browsecategories">Browse Categories</Link>
               <Link to="/addresume">Submit Resume</Link>
             </div>
@@ -196,8 +196,8 @@ const Header = () => {
             <h1 className="text-[#a9a9a9]">For Candidate</h1>
           </div>
           <div className="px-9 py-9 flex flex-col gap-4">
-            <Link to="/Jobs">Browse Jobs</Link>
-            <Link to="/admin/browsecompanies">Browse Companies</Link>
+            <Link to="/jobs">Browse Jobs</Link>
+            <Link to="/browsecompanies">Browse Companies</Link>
             <Link to="/browsecategories">Browse Categories</Link>
             <Link to="/addresume">Submit Resume</Link>
           </div>
