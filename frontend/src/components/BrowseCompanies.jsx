@@ -35,7 +35,7 @@ const BrowseCompanies = () => {
     "@type": "ItemList",
     "name": "Browse Companies",
     "description": "A list of companies available for browsing by the admin at findmycareer.",
-    "url": "https://findmycareer.co.in/admin/browsecompanies",
+    "url": "https://findmycareer.co.in/browsecompanies",
     "itemListElement": companies.map((company, index) => ({
       "@type": "ListItem",
       "position": index + 1,
@@ -55,11 +55,11 @@ const BrowseCompanies = () => {
         <meta property="og:title" content="Browse Companies -  findmycareer.co.in" />
         <meta property="og:description" content="Browse companies and explore job opportunities with FindMyCareer. Discover organizations that are hiring." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://findmycareer.co.in/admin/browsecompanies" />
+        <meta property="og:url" content="https://findmycareer.co.in/browsecompanies" />
         <meta name="twitter:title" content="Browse Companies - findmycareer.co.in" />
         <meta name="twitter:description" content="Browse companies and explore job opportunities with FindMyCareer. Discover organizations that are hiring." />
         <meta name="twitter:card" content="summary" />
-        <link rel="canonical" href="https://findmycareer.co.in/admin/browsecompanies" />
+        <link rel="canonical" href="https://findmycareer.co.in/browsecompanies" />
          {/* JSON-LD Schema for the page */}
           <script type="application/ld+json">{JSON.stringify(schema)}</script>
         
