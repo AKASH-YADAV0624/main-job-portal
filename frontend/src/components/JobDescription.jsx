@@ -149,7 +149,7 @@ const JobDescription=()=>{
         unitText: "MONTH",
       },
     },
-    datePosted: `${daysAgoFunction(singleJob?.createdAt)} days ago`  || new Date().toISOString().split("T")[0],
+    datePosted: singleJob?.createdAt?.split("T")[0]  || new Date().toISOString().split("T")[0],
     validThrough: singleJob?.closingDate?.split("T")[0] || "2025-12-31T23:59:59",
     hiringOrganization: {
       "@type": "Organization",
