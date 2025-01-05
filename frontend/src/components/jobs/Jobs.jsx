@@ -36,6 +36,13 @@ const Jobs = () => {
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
   const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
 
+   const daysAgoFunction=(mongodbTime)=>{
+    const createdAt=new Date(mongodbTime);
+    const currentTime=new Date();
+    const timeDifference=currentTime-createdAt;
+    return Math.floor(timeDifference/(1000*24*60*60));
+}
+
   // Job Posting Schema for ItemList
   const jobListSchema = {
     "@context": "https://schema.org",
@@ -49,7 +56,7 @@ const Jobs = () => {
         "@type": "JobPosting",
         "title": job.title,
         "description": job.description,
-        "datePosted": job.datePosted,
+        "datePosted": `${daysAgoFunction(job?.createdAt)} days ago` || new Date().toISOString().split("T")[0],
         "employmentType": job.employmentType,
         "hiringOrganization": {
           "@type": "Organization",
