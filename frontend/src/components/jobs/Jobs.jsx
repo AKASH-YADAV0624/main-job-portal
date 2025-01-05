@@ -56,7 +56,7 @@ const Jobs = () => {
         "@type": "JobPosting",
         "title": job.title,
         "description": job.description,
-        "datePosted": `${daysAgoFunction(job?.createdAt)} days ago` || new Date().toISOString().split("T")[0],
+        "datePosted": job?.createdAt?.split("T")[0] || new Date().toISOString().split("T")[0],
         "employmentType": job.employmentType,
         "hiringOrganization": {
           "@type": "Organization",
