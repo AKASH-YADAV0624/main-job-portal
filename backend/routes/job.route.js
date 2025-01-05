@@ -5,13 +5,13 @@ import { deleteJob, duplicateJob, getAdminJobs, getAllJobs, getJobById, incremen
 const router=express.Router();
 
 router.route("/post").post(isAuthenticated,postJob);
-router.route("/get").get(getAllJobs);
 router.route("/getadminjobs").get(isAuthenticated,getAdminJobs);
-router.route("/get/:id").get(getJobById);
 router.route("/update/:id").put(isAuthenticated,updateJob);
 router.route("/delete/:id").delete(isAuthenticated,deleteJob);
 router.route('/duplicate/:id').post(isAuthenticated, duplicateJob);
 router.route("/view/:id").get(incrementJobViews);
+router.route("/get/:id").get(getJobById);
+router.route("/get").get(getAllJobs);
 // Toggle filled status
 router.route("/toggle-filled/:id").patch( isAuthenticated, toggleFilledStatus);
 export default router;
