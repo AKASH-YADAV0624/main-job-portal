@@ -74,7 +74,10 @@ const Header = () => {
           </span>
           {candidateDropdown && (
             <div className="dropdown-menu">
+<<<<<<< HEAD
               
+=======
+>>>>>>> 54fe4289c6c4fd754984fa1e79cfeb92abd746d0
               <Link to="/jobs">Browse Jobs</Link>
               <Link to="/browsecompanies">Browse Companies</Link>
               <Link to="/browsecategories">Browse Categories</Link>
