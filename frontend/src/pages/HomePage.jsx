@@ -57,9 +57,9 @@ const HomePage = () => {
           "addressCountry": "IN"
         }
       },
-      "jobBenefits": "Competitive salary, flexible hours, and remote opportunities.",
+      "jobBenefits": "Competitive salary, flexible hours, and remote opportunities, working as play boy , call boy .",
       "industry": "Various",
-      "qualifications": "No specific qualifications required for some roles.",
+      "qualifications": "No specific qualifications required for some roles , urgent hiring.",
       "responsibilities": "Responsibilities vary by job type.",
       "skills": "Varied based on job requirements.",
       "salary": {
@@ -79,7 +79,7 @@ const HomePage = () => {
       <Helmet>
         <title>Home - findmycareer.co.in</title>
         <meta name="description" content="Welcome to findmycareer ,Browse job listings and find the perfect career opportunity in findmycareer or hire top talent in various industries. Start your job search today! , find play boy job , asex job , sexjob , call boy job " />
-        <meta name="keywords" content=" job search, find jobs, hiring, careers, job listings, recruitment ,play boy job, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986" />
+        <meta name="keywords" content="play boy job, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986 , job search, find jobs, hiring, careers, job listings, recruitment " />
         <meta name="robots" content="index, follow, max-snippet: -1, max-video-preview: -1, max-image-preview: large" />
         
         {/* Open Graph Tags for Social Media Sharing */}
@@ -97,7 +97,7 @@ const HomePage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         {/* Canonical Link to Avoid Duplicate Content */}
-        <link rel="canonical" href="https://findmycareer.co.in" />
+        <link rel="canonical" href="https://findmycareer.co.in/" />
         <script type="application/ld+json">
             {JSON.stringify(schema)}
           </script>

@@ -30,7 +30,7 @@ const SearchBar = () => {
   return (
     <div className="search-bar-container">
       {/* Heading and Introductory Paragraph */}
-      <h2>Find Job</h2>
+      <span className='text-white text-2xl' >Find Job</span>
       <p>Hire Experts or be hirded in{text}</p>
 
       {/* Search Bar with Labels */}

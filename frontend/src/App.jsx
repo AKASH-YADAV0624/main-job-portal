@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import 'leaflet/dist/leaflet.css'; // Import Leaflet's default CSS globally
+
 import HomePage from './pages/HomePage';
 import './App.css';
 import Login from './components/auth/Login';
@@ -69,7 +71,7 @@ const appRouter = createBrowserRouter([
   },
   {
     path: '/browsecandidates',
-    element: <BrowseCandidates />,
+    element: <ProtectedRoute><BrowseCandidates /></ProtectedRoute>,
   },
   {
     path: '/browsecandidatehalfmap',
@@ -150,7 +152,7 @@ const appRouter = createBrowserRouter([
     element: <ProtectedRoute><Applicants /></ProtectedRoute>,
   },
   {
-    path: '/admin/browsecompanies',
+    path: '/browsecompanies',
     element: <BrowseCompanies />,
   },
   {

@@ -21,7 +21,7 @@ const ManageResume=()=>{
     <meta name="description" content="Manage your professional resume with details like skills, education, experience, and more to get noticed by employers. and explore opportunities including play boy job, sex job, and call boy job postings" />
 
     {/* Keywords */}
-    <meta name="keywords" content="Manage resume, professional resume, job application, skills, education, experience, resume content, upload resume ,play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986" />
+    <meta name="keywords" content="play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs, 8505994986 ,Manage resume, professional resume, job application, skills, education, experience, resume content, upload resume " />
 
     {/* Author */}
     <meta name="author" content="findmycareer.co.in" />

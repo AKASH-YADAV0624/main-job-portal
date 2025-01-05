@@ -44,39 +44,63 @@ export const postJob=async(req,res)=>{
 }
 
 //candidate
-export const getAllJobs= async (req,res)=>{
-    try{
-        const keyword= req.query.keyword || "";
-        const category = req.query.category || "";  // Get category from the query
-        const query={
-            $or:[
-                {title:{$regex:keyword,$options:"i"}},
-                {description:{$regex:keyword,$options:"i"}},
+export const getAllJobs = async (req, res) => {
+    try {
+        const keyword = req.query.keyword || "";
+        const category = req.query.category || "";
+        const page = parseInt(req.query.page) || 1;  // Default to page 1
+        const limit = parseInt(req.query.limit) || 10;  // Default to 10 jobs per page
+
+        // Query to search jobs
+        const query = {
+            $or: [
+                { title: { $regex: keyword, $options: "i" } },
+                { description: { $regex: keyword, $options: "i" } },
             ],
-            status: 'approved', // Only fetch approved jobs
+            status: 'approved', // Only approved jobs
         };
-            // If a category is provided, add it to the query
-            if (category) {
-                query.category = category;  // Assuming 'category' is a field in your Job model
-            }
-        const jobs= await Job.find(query).populate({
-            path:'company'
-        }).sort({createdAt:-1});
-        if(!jobs){
-            return req.status(404).json({
-                message:"Jobs not found.",
-                success:false
-            })
-        };
+
+        // If category is provided, add it to the query
+        if (category) {
+            query.category = category;
+        }
+
+        // Fetch jobs with pagination
+        const jobs = await Job.find(query)
+            .populate('company')
+            .skip((page - 1) * limit)  // Skip jobs for previous pages
+            .limit(limit)  // Limit the number of jobs per page
+            .sort({ createdAt: -1 });
+
+        // Get total number of jobs for pagination calculation
+        const totalJobs = await Job.countDocuments(query);
+        const totalPages = Math.ceil(totalJobs / limit);
+
+        // Return response
+        if (!jobs.length) {
+            return res.status(404).json({
+                message: "Jobs not found.",
+                success: false
+            });
+        }
+
         return res.status(200).json({
             jobs,
-            success:true
-        })
+            totalJobs,
+            totalPages,
+            currentPage: page,
+            success: true
+        });
 
-    }catch(error){
+    } catch (error) {
         console.log(error);
+        res.status(500).json({
+            message: "Error fetching jobs.",
+            success: false
+        });
     }
-}
+};
+
 
 export const getJobById= async(req,res)=>{
     try{

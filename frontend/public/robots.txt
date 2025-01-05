@@ -4,4 +4,5 @@ Disallow: /login/
 Disallow: /profile/
 Disallow: /dashboard/
 Allow: /jobs/
+Allow: /  # Allow the homepage and other relevant pages
 Sitemap: https://www.findmycareer.co.in/sitemap.xml

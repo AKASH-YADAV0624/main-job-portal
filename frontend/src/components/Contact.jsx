@@ -44,7 +44,7 @@ const Contact=()=>{
                 <div className="px-5 w-full py-5 flex flex-col items-center justify-center">
               <h1 className="text-sky-400 text-2xl my-2">Our Office</h1>
               <p className="text-xl">Riverside Building, Londo SE1 7PB, UK
-              Phone (123) 123-456</p>
+              Phone (+91) 8505994986</p>
               <p className="text-green-500 text-xl">findmycareer@gmail.com</p>
                 </div>
                 <div className="w-full h-96" >
