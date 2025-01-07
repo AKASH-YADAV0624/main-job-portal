@@ -20,7 +20,7 @@ const RecentJobs=()=>{
             <h1>Recent jobs</h1>
             <div className="grid grid-cols-3 gap-4 my-5 max780:grid-cols-2 max560:grid-cols-1">
            {
-           allJobs.length<=0?<span>No Job Available</span>:allJobs?.slice(0,6).map((job)=><LatestJobCard key={job._id} job={job}/>)}
+           allJobs.length<=0?<span>No Job Available</span>:allJobs?.slice(0,6).map((job)=><LatestJobCard key={job.slug} job={job}/>)}
            </div>
         </div>
         </>

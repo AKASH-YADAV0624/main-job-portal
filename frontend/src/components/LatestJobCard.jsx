@@ -6,7 +6,7 @@ const LatestJobCard = ({ job }) => {
   const navigate = useNavigate();
   return (
     <div
-      onClick={() => navigate(`/description/${job?._id}`)}
+      onClick={() => navigate(`/description/${job?.slug}`)}
       className="p-5 rounded-md shadow-xl bg-white border border-gray-100 cursor-pointer flex  flex-col gap-4 "
     >
       <div>
