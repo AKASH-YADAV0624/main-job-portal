@@ -30,7 +30,7 @@ const JobDescription=()=>{
     const dispatch=useDispatch()
     const applyJobHandler= async()=>{
         try{
-            const res= await axios.get(`${APPLICATION_API_END_POINT}/apply/${singleJob._id}`,{withCredentials:true});
+            const res= await axios.get(`${APPLICATION_API_END_POINT}/apply/${singleJob?._id}`,{withCredentials:true});
             if(res.data.success){
                 setIsApplied(true);//update the local state
                 const updateSingleJob={...singleJob,applications:[...singleJob.applications,{applicant:user?._id}]}
@@ -57,7 +57,7 @@ const JobDescription=()=>{
                 console.log(error);
             }
         }
-        axios.get(`${JOB_API_END_POINT}/view/${singleJob._id}`, { withCredentials: true })
+        axios.get(`${JOB_API_END_POINT}/view/${singleJob?._id}`, { withCredentials: true })
         .then((response) => {
             if (response.data.success) {
                 console.log("Views incremented");

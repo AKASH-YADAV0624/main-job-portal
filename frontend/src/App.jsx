@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import 'leaflet/dist/leaflet.css'; // Import Leaflet's default CSS globally
 
 import HomePage from './pages/HomePage';
 import './App.css';

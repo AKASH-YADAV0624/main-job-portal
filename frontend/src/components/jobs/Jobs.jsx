@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Header from "../shared/Header";
 import FilterCard from "../FilterCard";
 import Job from "../Job";
-import MapComponent from "../MapComponent";
 import './Jobs.css';
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchedCategory, setSearchedQuery } from "@/redux/jobSlice";
@@ -165,7 +164,7 @@ const Jobs = () => {
 
         <div className="w-1/2 position-static max650:hidden">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1717.4428269796258!2d-1.6242033!3d54.9755502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e7734dc20d87b%3A0x2e911404fa537b88!2sSt.%20James'%20Park!5e0!3m2!1sen!2s!4v1695735567996!5m2!1sen!2s
-" className="w-full h-full " loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+" className="w-full h-full " loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>
