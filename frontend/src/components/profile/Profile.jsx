@@ -17,14 +17,14 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 const Profile=()=>{
 const { user }=useSelector(store=>store.auth);
 const [input,setInput]=useState({
-    username:user?.username,
-    email:user?.email,
-    phoneNumber:user?.phoneNumber,
-    bio:user?.profile?.bio,
-    skills:user?.profile?.skills?.map(skill=>skill),
-    file:user?.profile?.resume,
-    firstName:user?.firstName,
-    lastName:user?.lastName,
+    username: user?.username || "",
+    email: user?.email || "",
+    phoneNumber: user?.phoneNumber || "",
+    bio: user?.profile?.bio || "",
+    skills: user?.profile?.skills?.map(skill => skill) || [],
+    file: user?.profile?.resume || "",
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
 });
 
 //password change
@@ -115,7 +115,7 @@ const submitHandler= async(e)=>{
                 <title>Profile - findmycareer.co.in</title>
         <meta name="description" content="Manage your profile, update your information, and change your password on FindMyCareer." />
         <meta name="robots" content="index, follow" />
-        <meta name="keywords" content=" Find My Career, Job portal, play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs, 8505994986" />
+        <meta name="keywords" content=" Find My Career, play boy job since yesterday, Job portal, play boy job, sex job, call boy job , urgent hiring, freelance jobs, full-time jobs, part-time jobs, 8505994986" />
         <meta name="author" content="findmycareer.co.in" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="UTF-8" />

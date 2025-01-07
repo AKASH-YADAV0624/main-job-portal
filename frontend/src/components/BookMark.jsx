@@ -6,6 +6,7 @@ import { Badge } from "./ui/badge";
 import { useDispatch, useSelector } from "react-redux";
 import { editBookmark, removeBookmark } from "@/redux/bookmarkSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const BookMark=()=>{
     const { bookmarks } = useSelector((store) => store.bookmark);
@@ -69,8 +70,7 @@ const BookMark=()=>{
                   bookmarks.map((job) => (
                     <TableRow key={job._id}>
                       <TableCell className="cursor-pointer text-green-600"
-                       
-                       onClick={() => navigate(`/description/${job._id}`)}
+                      
                       >
                         {job.title}
                       </TableCell>

@@ -12,6 +12,8 @@ const MyApplication=()=>{
     useGetAppliedJobs()
     const {allAppliedJobs} = useSelector(store=>store.job);
     const navigate=useNavigate()
+  
+
     return(
         <div>
              <HelmetProvider>
@@ -65,7 +67,8 @@ const MyApplication=()=>{
                                     allAppliedJobs?.length <= 0? <span>You haven't applied any job yet.</span> : allAppliedJobs?.map((appliedJob)=>(
                                         <TableRow  key={appliedJob._id}>
                                             <TableCell className="cursor-pointer text-green-600" 
-                                               onClick={() => navigate(`/description/${appliedJob._id}`)}>
+                                           >
+                                                 
                                                 {appliedJob?.job?.title}</TableCell>
                                             <TableCell className="text-gray-500">{appliedJob?.createdAt?.split("T")[0]}</TableCell>
                                             <TableCell className="text-gray-500">{appliedJob?.status}</TableCell>
@@ -74,6 +77,7 @@ const MyApplication=()=>{
                                         </TableRow>
                                     ))
                                 }
+                                
                             </TableBody>
                         </Table>
                     </div>

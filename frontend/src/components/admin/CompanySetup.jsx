@@ -33,10 +33,14 @@ const CompanySetup=()=>{
     const changeEventHandler=(e)=>{
         setInput({...input,[e.target.name]:e.target.value});
     }
-   const changeFileHandler=(e)=>{
-    const file=e.target.files?.[0];
-    setInput({...input,file});
-   }
+    const changeFileHandler = (e) => {
+      const file = e.target.files?.[0]; // Check if file exists
+      if (file) {
+        setInput({ ...input, file });
+      } else {
+        setInput({ ...input, file: null }); // Clear file if none is selected
+      }
+    };
    const submitHandler= async(e)=>{
     e.preventDefault();
     const formData=new FormData();

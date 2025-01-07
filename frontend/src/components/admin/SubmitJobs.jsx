@@ -90,6 +90,7 @@ const SubmitJobs=()=>{ // Get the jobId from the URL
         },
         withCredentials:true
       });
+    
       if(res.data.success){
         navigate("/admin/choosepackage"); // Navigate to the next page
       }
@@ -160,7 +161,7 @@ const SubmitJobs=()=>{ // Get the jobId from the URL
                   companies.map((company)=>{
                     return(
 
-                      <SelectItem className="bg-green-500" value={company?.name?.toLowerCase()}>{company.name}</SelectItem>
+                      <SelectItem key={company._id} className="bg-green-500" value={company?.name?.toLowerCase()}>{company.name}</SelectItem>
                     )
                   })
                 }
@@ -349,7 +350,7 @@ const SubmitJobs=()=>{ // Get the jobId from the URL
         <div className="w-full flex  mt-5">
          
           {
-            loading? <Button className="w-full my-4"><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Please wait</Button>: <Button  type="button"
+            loading? <Button className="w-full my-4"><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Please wait</Button>: <Button  type="submit"
             onClick={submitAndNavigate} className="text-white bg-green-600  py-2 rounded max560:w-full">
             Preview
         </Button>

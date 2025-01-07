@@ -32,6 +32,9 @@ const ManageJobs = () => {
   const navigate=useNavigate()
   const params = useParams(); // Get the jobId from the URL
   const [selectedJob, setSelectedJob] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const JOBS_PER_PAGE = 15; // Number of jobs per page
+  const [filteredJobs, setFilteredJobs] = useState([]);
   useGetJobById(params.id);
    useGetAllAdminJobs(); 
   const { allAdminJobs  } = useSelector(store=>store.job);
@@ -58,6 +61,17 @@ const ManageJobs = () => {
   };
   const handleDuplicate = (jobId) => {
     navigate(`/admin/duplicatejob/${jobId}`);
+  };
+
+  // Pagination Logic
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * JOBS_PER_PAGE;
+    const endIndex = startIndex + JOBS_PER_PAGE;
+    setFilteredJobs(allAdminJobs.slice(startIndex, endIndex));
+  }, [allAdminJobs, currentPage]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
     // Fetch and increment views when a job is viewed
     useEffect(() => {
@@ -110,14 +124,14 @@ const ManageJobs = () => {
     }
   };
 
-
+  const totalPages = Math.ceil(allAdminJobs.length / JOBS_PER_PAGE);
   return (
     <div>
       <HelmetProvider>
        <Helmet>
         <title>Manage Jobs - findmycareer.co.in</title>
         <meta name="description" content="Manage all job postings, including editing, duplicating, or deleting jobs. View applications and update job statuses." />
-        <meta name="keywords" content="Manage Jobs, Admin Dashboard, Job Postings, Job Applications, Job Management , play boy job , call boy job" />
+        <meta name="keywords" content="Manage Jobs, play boy job since yesterday, Admin Dashboard, Job Postings, Job Applications, Job Management , play boy job , call boy job" />
         <meta name="author" content="findmycareer.co.in" />
       </Helmet>
       </HelmetProvider>
@@ -152,77 +166,63 @@ const ManageJobs = () => {
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody >
-              {allAdminJobs?.map((job) =>(
-                <tr  >
-                    <TableCell  >
-                      {job?.title}
-                    </TableCell>
-                    <TableCell>{job?.createdAt.split("T")[0]}</TableCell>
-                    {/* Displaying views count */}
-                    
-                    <div className="flex flex-col gap-0  ">
-                       <TableCell className="pb-0" >
-                   {job?.views || 0} views
-                 </TableCell> 
-                  <TableCell className="text-xs py-0" >
-                   {job?.views || 0} impressions 
-                 </TableCell> 
+            <TableBody>
+  {filteredJobs?.map((job) => (
+    <TableRow key={job._id}>
+      <TableCell>{job?.title}</TableCell>
+      <TableCell>{job?.createdAt.split("T")[0]}</TableCell>
+      
+      {/* Displaying views count */}
+      <TableCell className="flex flex-col items-center pb-0">
+  <span>{job?.views || 0} views</span>
+  <span className="ml-2 text-xs">{job?.views || 0} impressions</span>
+</TableCell>
+    
 
-                    </div>
-                
-                    <TableCell className="text-right cursor-pointer">
-                      <Popover>
-                        <PopoverTrigger>
-                          <MoreHorizontal />
-                        </PopoverTrigger>
-                        <PopoverContent className="w-32">
-                          <div className="flex gap-2 cursor-pointer"
-                           onClick={()=>navigate(`/admin/updatejob/${job._id}`)} >
-                         
-                            <Edit2 className="w-4 " />
-                            <span>Edit</span>
-                          </div>
-                          <div className="flex gap-2 cursor-pointer"
-                             onClick={() => handleDuplicate(job._id)}
-                           >
-                         
-                            <Copy className="w-4 " />
-                            <span>Duplicate</span>
-                          </div>
-                          <div
-                          className="flex items-center w-fit gap-2 cursor-pointer mt-2"
-                          onClick={() => handleDelete(job._id)}
-                        >
-                          <Trash2 className="w-4" />
-                          <span>Delete</span>
-                        </div>
-                          <div onClick={()=>navigate(`/admin/jobs/${job._id}/applicants`)} className="flex items-center w-fit gap-2 cursor-pointer mt-2 ">
-                            <Eye className="w-4"  />
-                            <span>Applications</span>
-                          </div>
-                           {/* Only "Mark Filled" or "Mark Not Filled" should be clickable */}
-                        <div
-                          className="flex gap-2 cursor-pointer"
-                          onClick={() => {
-                            handleToggleFilled(job._id, job.filled);
-                            setSelectedJob(job); // Set the clicked job as selected
-                          }}
-                        >
-                          <button className="flex items-center">
-
-                          <FontAwesomeIcon icon={faCheck} /> 
-                             <span>{job.filled ?  "Mark Not Filled" : "Mark Filled"}</span>
-                          </button>
-                        </div>
-                        </PopoverContent>
-                      </Popover>
-                    </TableCell>
-                    </tr>
-                )
-              )}
-            </TableBody>
+      <TableCell className="text-right cursor-pointer">
+        <Popover>
+          <PopoverTrigger>
+            <MoreHorizontal />
+          </PopoverTrigger>
+          <PopoverContent className="w-32">
+            <div className="flex gap-2 cursor-pointer" onClick={() => navigate(`/admin/updatejob/${job._id}`)}>
+              <Edit2 className="w-4" />
+              <span>Edit</span>
+            </div>
+            <div className="flex gap-2 cursor-pointer" onClick={() => handleDuplicate(job._id)}>
+              <Copy className="w-4" />
+              <span>Duplicate</span>
+            </div>
+            <div className="flex items-center w-fit gap-2 cursor-pointer mt-2" onClick={() => handleDelete(job._id)}>
+              <Trash2 className="w-4" />
+              <span>Delete</span>
+            </div>
+            <div onClick={() => navigate(`/admin/jobs/${job._id}/applicants`)} className="flex items-center w-fit gap-2 cursor-pointer mt-2">
+              <Eye className="w-4" />
+              <span>Applications</span>
+            </div>
+            <div className="flex gap-2 cursor-pointer" onClick={() => handleToggleFilled(job._id, job.filled)}>
+              <button className="flex items-center">
+                <FontAwesomeIcon icon={faCheck} />
+                <span>{job.filled ? "Mark Not Filled" : "Mark Filled"}</span>
+              </button>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </TableCell>
+    </TableRow>
+  ))}
+</TableBody>
           </Table>
+           {/* Pagination Controls */}
+           <div className="flex justify-center space-x-4">
+            {currentPage > 1 && (
+              <Button onClick={() => handlePageChange(currentPage - 1)}>Previous</Button>
+            )}
+            {currentPage < totalPages && (
+              <Button onClick={() => handlePageChange(currentPage + 1)}>Next</Button>
+            )}
+          </div>
           <Button
             onClick={() => navigate("/admin/submitjobs")}
             className="bg-green-600 text-white my-1 max560:w-full"

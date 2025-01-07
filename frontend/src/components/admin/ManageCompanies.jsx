@@ -83,41 +83,42 @@ const ManageCompanies = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {companies?.map((company) =>(
-                <tr>
-                    <TableCell>
-                      <Avatar>
-                        <AvatarImage   src={company.logo} />
-                      </Avatar>
-                    </TableCell>
-                    <TableCell className="max560:p-2">{company.name}</TableCell>
-                    <TableCell className="max560:p-2">{company.createdAt.split("T")[0]}</TableCell>
-                    <TableCell className="max560:p-2">{company.status}</TableCell>
-                    <TableCell className="text-right cursor-pointer max560:p-2">
-                      <Popover>
-                        <PopoverTrigger>
-                          <MoreHorizontal />
-                        </PopoverTrigger>
-                        <PopoverContent className="w-32 ">
-                          <div onClick={()=>navigate(`/admin/company/${company._id}`)}
-                            className="flex items-center w-fit gap-2 cursor-pointer mt-2">
-                            <Edit2 className="w-4 cursor-pointer " />
-                            <span>Edit</span>
-                          </div>
-                          <div
-                          className="flex items-center w-fit gap-2 cursor-pointer mt-2"
-                          onClick={() => handleDeleteCompany(company._id)}
-                        >
-                          <Trash2 className="w-4 cursor-pointer" />
-                          <span>Delete</span>
-                        </div>
-                        </PopoverContent>
-                      </Popover>
-                    </TableCell>
-                    </tr>
-                )
-              )}
-            </TableBody>
+  {companies?.map((company) => (
+    <tr key={company._id}> {/* Add a unique key here */}
+      <TableCell>
+        <Avatar>
+          <AvatarImage src={company.logo} />
+        </Avatar>
+      </TableCell>
+      <TableCell className="max560:p-2">{company.name}</TableCell>
+      <TableCell className="max560:p-2">{company.createdAt.split("T")[0]}</TableCell>
+      <TableCell className="max560:p-2">{company.status}</TableCell>
+      <TableCell className="text-right cursor-pointer max560:p-2">
+        <Popover>
+          <PopoverTrigger>
+            <MoreHorizontal />
+          </PopoverTrigger>
+          <PopoverContent className="w-32 ">
+            <div
+              onClick={() => navigate(`/admin/company/${company._id}`)}
+              className="flex items-center w-fit gap-2 cursor-pointer mt-2"
+            >
+              <Edit2 className="w-4 cursor-pointer " />
+              <span>Edit</span>
+            </div>
+            <div
+              className="flex items-center w-fit gap-2 cursor-pointer mt-2"
+              onClick={() => handleDeleteCompany(company._id)}
+            >
+              <Trash2 className="w-4 cursor-pointer" />
+              <span>Delete</span>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </TableCell>
+    </tr>
+  ))}
+</TableBody>
           </Table>
           <Button
             onClick={() => navigate("/admin/company")}

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const Job=({job})=>{
     const navigate=useNavigate();
     return(
-        <div onClick={()=>navigate(`/description/${job?._id}`)} className="flex p-5 cursor-pointer rounded-md shadow-xl bg-white border border-gray-100 cursor pointer ">
+        <div onClick={()=>navigate(`/description/${job?.slug}`)} className="flex p-5 cursor-pointer rounded-md shadow-xl bg-white border border-gray-100 cursor pointer ">
             <div className="flex items-center gap-2 my-2 pr-2.5 max650:h-fit">
               
                     <Avatar>

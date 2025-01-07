@@ -23,6 +23,8 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import useGetJobById from "@/hooks/useGetJobById";
 
+
+
 const DuplicateJob = () => {
   const params = useParams(); // Get the jobId from the URL
   useGetJobById(params.id);
@@ -43,6 +45,8 @@ const DuplicateJob = () => {
     jobTags: "",
     closingDate: "",
     jobRegion: "",
+    createdAt: new Date().toISOString(),  // Set the current date
+    postedAt: new Date().toISOString(),   // If you use a different date field, set it accordingly
   });
   const [loading, setLoading] = useState(false);
   const { companies } = useSelector((store) => store.company);
@@ -58,6 +62,8 @@ const DuplicateJob = () => {
       setInput((prev) => ({ ...prev, [name]: value }));
     }
   };
+
+
   const jobTypeOptions = [
     { value: "Freelance", label: "Freelance" },
     { value: "Full Time", label: "Full Time" },
@@ -113,6 +119,7 @@ const DuplicateJob = () => {
     formData.append(" jobTags", input.jobTags);
     formData.append("closingDate", input.closingDate);
     formData.append("jobRegion", input.jobRegion);
+    // Append the slug to the form data
 
     try {
       setLoading(true);

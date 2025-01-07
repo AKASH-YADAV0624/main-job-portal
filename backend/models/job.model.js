@@ -1,87 +1,110 @@
 import mongoose from "mongoose";
+import slugify from "slugify"; // Import slugify for creating slugs
 
-const jobSchema=new mongoose.Schema({
-    title:{
-        type:String,
-        required:true
+const jobSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
     },
-    description:{
-        type:String,
-        required:true
+    description: {
+      type: String,
+      required: true,
     },
-    location:{
-        type:String,
-       
+    location: {
+      type: String,
     },
-    jobType:{
-        type:[String],  //change into string
-        
+    jobType: {
+      type: [String], // Change into an array of strings
     },
-    company:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Company',
-        required:true
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+      required: true,
     },
-    created_by:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        required:true,
+    created_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-    applications:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Application',
-    }],
-    category: {  // Added category field
-        type: [String],
-        required: true,  // You can set this to false if category is optional
+    applications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Application",
+      },
+    ],
+    category: {
+      type: [String], // Category is now an array of strings
+      required: true,
     },
-    externalLink:{    // req to external link
-        type:String, 
+    externalLink: {
+      type: String,
     },
-    minimumSalary:{    // salary to minimum
-        type:Number,
-       
+    minimumSalary: {
+      type: Number,
     },
-    maximumSalary:{     // expr to this
-        type:Number,
-      
+    maximumSalary: {
+      type: Number,
     },
-    minimumRate:{            // position to min
-        type:Number,
-       
+    minimumRate: {
+      type: Number,
     },
-    maximumRate:{              // new    
-        type:Number,
-       
+    maximumRate: {
+      type: Number,
     },
-    applicationEmail:{              //new
-        type:String,
-       
+    applicationEmail: {
+      type: String,
     },
-    jobTags:{            // new
-        type:String,
-       
+    jobTags: {
+      type: String,
     },
-    closingDate:{            //new
-        type:Date,
-       
+    closingDate: {
+      type: Date,
     },
-    jobRegion:{            //new
-        type:String,
-       
+    jobRegion: {
+      type: String,
     },
     views: {
-        type: Number,
-        default: 0, // Initialize views to 0
-      },
-      status: {
-        type: String,
-        enum: ['pending', 'approved', 'rejected'],
-        default: 'pending',  // Default to pending when a job is first created
-      },
-      filled: { type: Boolean, default: false }, // Filled status
-   
+      type: Number,
+      default: 0, // Initialize views to 0
+    },
+    status: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending", // Default to pending when a job is first created
+    },
+    filled: { type: Boolean, default: false }, // Filled status
+    slug: {
+      type: String,
+      unique: true, // Ensure slug is unique
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-},{timestamps:true})
+// Pre-save hook to generate slug based on the title
+jobSchema.pre("save", async function (next) {
+  if (this.title && !this.slug) {
+    // Create a slug from the title
+    let slug = slugify(this.title, { lower: true, strict: true });
 
-export const Job=mongoose.model('Job',jobSchema);
+    // Check for duplicate slugs
+    let existingJob = await Job.findOne({ slug });
+    let counter = 1;
+
+    // If the slug already exists, append a number to make it unique
+    while (existingJob) {
+      slug = `${slugify(this.title, { lower: true, strict: true })}-${counter}`;
+      existingJob = await Job.findOne({ slug });
+      counter++;
+    }
+
+    this.slug = slug;
+  }
+  next();
+});
+
+
+
+export const Job = mongoose.model("Job", jobSchema);

@@ -22,12 +22,15 @@ const JobDescription=()=>{
     const isIntiallyApplied=singleJob?.applications?.some(application=>application.applicant ===user?._id) || false;
     const [isApplied,setIsApplied]=useState(isIntiallyApplied)
   
-    const params=useParams();
-    const jobId=params.id;
+    
+
+    const params = useParams(); // Now we're expecting a 'slug' from the URL
+  const {  slug } = params; // Extract the slug from the URL params
+ 
     const dispatch=useDispatch()
     const applyJobHandler= async()=>{
         try{
-            const res= await axios.get(`${APPLICATION_API_END_POINT}/apply/${jobId}`,{withCredentials:true});
+            const res= await axios.get(`${APPLICATION_API_END_POINT}/apply/${singleJob._id}`,{withCredentials:true});
             if(res.data.success){
                 setIsApplied(true);//update the local state
                 const updateSingleJob={...singleJob,applications:[...singleJob.applications,{applicant:user?._id}]}
@@ -44,7 +47,8 @@ const JobDescription=()=>{
     useEffect(()=>{
         const fetchSingleJobs= async()=>{
             try{
-                const res= await axios.get(`${JOB_API_END_POINT}/get/${jobId}`,{withCredentials:true});
+                const res= await axios.get(`${JOB_API_END_POINT}/getslug/${slug}`,{withCredentials:true});
+              
                 if(res.data.success){
                     dispatch(setSingleJob(res.data.job));
                     setIsApplied(res.data.job.applications.some(application=>application.applicant===user?._id))//ensure the state is in sync with fetch data
@@ -53,7 +57,7 @@ const JobDescription=()=>{
                 console.log(error);
             }
         }
-        axios.get(`${JOB_API_END_POINT}/view/${jobId}`, { withCredentials: true })
+        axios.get(`${JOB_API_END_POINT}/view/${singleJob._id}`, { withCredentials: true })
         .then((response) => {
             if (response.data.success) {
                 console.log("Views incremented");
@@ -68,14 +72,14 @@ const JobDescription=()=>{
 
 
         fetchSingleJobs();
-    },[jobId,dispatch,user?._id])
+    },[slug,dispatch,user?._id])
  
 
     const daysAgoFunction=(mongodbTime)=>{
         const createdAt=new Date(mongodbTime);
         const currentTime=new Date();
         const timeDifference=currentTime-createdAt;
-        return Math.floor(timeDifference/(1000*24*60*60));
+        return Math.floor(timeDifference/(1000*24*60*60) );
     }
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -149,7 +153,7 @@ const JobDescription=()=>{
         unitText: "MONTH",
       },
     },
-    datePosted: daysAgoFunction(singleJob?.createdAt)  || new Date().toISOString().split("T")[0],
+    datePosted: singleJob?.createdAt?.split("T")[0]  || new Date().toISOString().split("T")[0],
     validThrough: singleJob?.closingDate?.split("T")[0] || "2025-12-31T23:59:59",
     hiringOrganization: {
       "@type": "Organization",
@@ -165,16 +169,16 @@ const JobDescription=()=>{
         <Helmet>
           <title>{singleJob?.title  || "Job Description"} - findmycareer.co.in</title>
           <meta name="description" content={dynamicDescription  || "Find your next career opportunity on findmycareer.co.in"} />
-           <meta name="keywords" content={`play boy job, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986 ,${dynamicKeywords}`} />
+           <meta name="keywords" content={`play boy job, play boy job since yesterday, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986 ,${dynamicKeywords}`} />
           <meta name="robots" content="index, follow, max-snippet: -1, max-video-preview: -1, max-image-preview: large" />
          
           
-          <link rel="canonical" href={`https://findmycareer.co.in/description/${jobId}`} />
+          <link rel="canonical" href={`https://findmycareer.co.in/description/${slug}`} />
           <meta property="og:locale" content="en_US" />
           <meta property="og:type" content="article" />
           <meta property="og:title" content={`${singleJob?.title} - findmycareer.co.in`} />
           <meta property="og:description" content={dynamicDescription} />
-          <meta property="og:url" content={`https://findmycareer.co.in/description/${jobId}`} />
+          <meta property="og:url" content={`https://findmycareer.co.in/description/${slug}`} />
           <meta property="og:site_name" content="findmycareer.co.in" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={`${singleJob?.title} - findmycareer.co.in`} />

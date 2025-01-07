@@ -9,14 +9,20 @@ import { setSearchedCategory, setSearchedQuery } from "@/redux/jobSlice";
 import useGetAllJobs from "@/hooks/useGetAllJobs";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
+
 const Jobs = () => {
   useGetAllJobs();
   const { allJobs, searchedCategory, searchedQuery } = useSelector((store) => store.job);
   const dispatch = useDispatch();
-
+ 
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 15; // Change this value to control how many jobs are shown per page
-
+  const daysAgoFunction=(mongodbTime)=>{
+    const createdAt=new Date(mongodbTime);
+    const currentTime=new Date();
+    const timeDifference=currentTime-createdAt;
+    return Math.floor(timeDifference/(1000*24*60*60));
+}
   useEffect(() => {
     return () => {
       dispatch(setSearchedQuery(""));
@@ -45,11 +51,12 @@ const Jobs = () => {
     "itemListElement": currentJobs.map((job, index) => ({
       "@type": "ListItem",
       "position": index + 1,
+      "url": `https://findmycareer.co.in/description/${job.slug}`,
       "item": {
         "@type": "JobPosting",
         "title": job.title,
         "description": job.description,
-        "datePosted": job.datePosted,
+        "datePosted": job?.createdAt?.split("T")[0] || new Date().toISOString().split("T")[0],
         "employmentType": job.employmentType,
         "hiringOrganization": {
           "@type": "Organization",
@@ -101,7 +108,7 @@ const Jobs = () => {
         <Helmet>
           <title>Find Jobs | Search and Apply for Opportunities - findmycareer.co.in</title>
           <meta name="description" content={`Find the best job opportunities in your field on findmycareer.co.in. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
-          <meta name="keywords" content={` play boy job, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs, 8505994986 ,find jobs, job search, careers, job listings, ${searchedCategory || 'all jobs'}`} />
+          <meta name="keywords" content={` play boy job, play boy job since yesterday, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs, 8505994986 ,find jobs, job search, careers, job listings, ${searchedCategory || 'all jobs'}`} />
           <meta name="robots" content="index, follow, max-snippet: -1, max-video-preview: -1, max-image-preview: large" />
           <meta property="og:title" content="Find Jobs | Search and Apply for Opportunities  on findmycareer.co.in." />
           <meta property="og:description" content={`Find the best job opportunities in your field findmycareer.co.in. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
@@ -157,7 +164,8 @@ const Jobs = () => {
         </div>
 
         <div className="w-1/2 position-static max650:hidden">
-          <MapComponent />
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1717.4428269796258!2d-1.6242033!3d54.9755502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e7734dc20d87b%3A0x2e911404fa537b88!2sSt.%20James'%20Park!5e0!3m2!1sen!2s!4v1695735567996!5m2!1sen!2s
+" className="w-full h-full " loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>

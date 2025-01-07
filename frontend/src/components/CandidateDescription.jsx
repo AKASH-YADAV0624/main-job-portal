@@ -50,7 +50,7 @@ const CandidateDescription=()=>{
 
             <HelmetProvider>
             <Helmet>
-        <title>{singleUser?.firstName} - Candidate Profile - findmycareer.co.in</title>
+        <title>{`${singleUser?.firstName} - Candidate Profile - findmycareer.co.in`}</title>
         <meta
           name="description"
           content={`${singleUser?.firstName} is a candidate looking for job opportunities. Check out their profile for skills, experience, and resume.`}

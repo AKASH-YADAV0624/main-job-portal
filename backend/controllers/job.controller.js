@@ -1,5 +1,5 @@
 import { Job } from "../models/job.model.js";
-
+import slugify from 'slugify';  // Import the slugify library
 //admin post krega job                             // here i add all job modals replace job modals
 export const postJob=async(req,res)=>{
     try{
@@ -11,6 +11,9 @@ export const postJob=async(req,res)=>{
                 success:false
             })
         };
+        // Generate the slug from the job title
+        const slug = slugify(title, { lower: true });
+      
         const job= await Job.create({
             title,
             description,
@@ -25,7 +28,7 @@ export const postJob=async(req,res)=>{
             category,
             jobTags,
             closingDate,
-
+ slug, // Store the slug in the job document
             jobRegion,
             company:companyId,
             created_by:userId,
@@ -44,63 +47,64 @@ export const postJob=async(req,res)=>{
 }
 
 //candidate
-export const getAllJobs = async (req, res) => {
-    try {
-        const keyword = req.query.keyword || "";
-        const category = req.query.category || "";
-        const page = parseInt(req.query.page) || 1;  // Default to page 1
-        const limit = parseInt(req.query.limit) || 10;  // Default to 10 jobs per page
-
-        // Query to search jobs
-        const query = {
-            $or: [
-                { title: { $regex: keyword, $options: "i" } },
-                { description: { $regex: keyword, $options: "i" } },
+export const getAllJobs= async (req,res)=>{
+    try{
+        const keyword= req.query.keyword || "";
+        const category = req.query.category || "";  // Get category from the query
+        const query={
+            $or:[
+                {title:{$regex:keyword,$options:"i"}},
+                {description:{$regex:keyword,$options:"i"}},
             ],
-            status: 'approved', // Only approved jobs
+            status: 'approved', // Only fetch approved jobs
         };
-
-        // If category is provided, add it to the query
-        if (category) {
-            query.category = category;
-        }
-
-        // Fetch jobs with pagination
-        const jobs = await Job.find(query)
-            .populate('company')
-            .skip((page - 1) * limit)  // Skip jobs for previous pages
-            .limit(limit)  // Limit the number of jobs per page
-            .sort({ createdAt: -1 });
-
-        // Get total number of jobs for pagination calculation
-        const totalJobs = await Job.countDocuments(query);
-        const totalPages = Math.ceil(totalJobs / limit);
-
-        // Return response
-        if (!jobs.length) {
-            return res.status(404).json({
-                message: "Jobs not found.",
-                success: false
-            });
-        }
-
+            // If a category is provided, add it to the query
+            if (category) {
+                query.category = category;  // Assuming 'category' is a field in your Job model
+            }
+        const jobs= await Job.find(query).populate({
+            path:'company'
+        }).sort({createdAt:-1});
+        if(!jobs){
+            return req.status(404).json({
+                message:"Jobs not found.",
+                success:false
+            })
+        };
         return res.status(200).json({
             jobs,
-            totalJobs,
-            totalPages,
-            currentPage: page,
-            success: true
-        });
+            success:true
+        })
 
-    } catch (error) {
+    }catch(error){
         console.log(error);
-        res.status(500).json({
-            message: "Error fetching jobs.",
-            success: false
-        });
     }
-};
+}
 
+
+export const getJobBySlug= async(req,res)=>{
+    try{
+      //  const jobId= req.params.id;
+      const jobSlug=req.params.slug;
+        const job= await Job.findOne({ slug: jobSlug }).populate([
+            { path: "company" }, 
+            { path: "applications" },
+          ]);
+        if(!job){
+            return res.status(404).json({
+                message:"Jobs not found.",
+                success:false
+            })
+        }
+        return res.status(200).json({
+            job,
+            success:true
+        });
+
+    }catch(error){
+        console.log(error)
+    }
+}
 
 export const getJobById= async(req,res)=>{
     try{
@@ -163,7 +167,13 @@ export const updateJob = async (req, res) => {
                 success: false
             });
         }
-
+  // Check if the title was updated and generate the new slug if necessary
+  if (req.body.title) {
+    req.body.slug = req.body.title
+        .toLowerCase()
+        .replace(/ /g, '-') // Replace spaces with hyphens
+        .replace(/[^\w-]+/g, ''); // Remove any non-alphanumeric characters
+}
         // Update the job with the new data
         job = await Job.findByIdAndUpdate(id, req.body, {
             new: true,
@@ -217,6 +227,16 @@ export const deleteJob = async (req, res) => {
     }
 };
 
+// Function to generate a unique slug
+const createUniqueSlug = (title) => {
+    const baseSlug = title
+        .toLowerCase()
+        .replace(/ /g, '-') // Replace spaces with hyphens
+        .replace(/[^\w-]+/g, ''); // Remove any non-alphanumeric characters
+    const timestamp = Date.now(); // Use current timestamp to ensure uniqueness
+    return `${baseSlug}-${timestamp}`; // Append timestamp to make slug unique
+};
+
 // Duplicate job
 export const duplicateJob = async (req, res) => {
     const { id } = req.params; // Get the jobId from the request parameters
@@ -229,6 +249,7 @@ export const duplicateJob = async (req, res) => {
                 success: false
             });
         }
+        
 
         // Create a new job object with the modified fields
         const duplicatedJob = new Job({
@@ -248,7 +269,9 @@ export const duplicateJob = async (req, res) => {
             jobRegion: req.body.jobRegion || job.jobRegion,
             category: req.body.category || job.category, // Modify jobRegion if provided
             // Set the new job status to 'pending'
+            slug: createUniqueSlug(req.body.title || job.title),
             created_by: req.id, // Set the same user who created the original job
+            createdAt: Date.now(), // Set the createdAt to the current time
             applications: [], // Reset the applications array to avoid copying over old applications
         });
 

@@ -16,6 +16,7 @@ import  Select  from 'react-select'
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import useGetJobById from "@/hooks/useGetJobById";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const UpdateJob=()=>{
     const params = useParams(); // Get the jobId from the URL
@@ -110,7 +111,6 @@ const UpdateJob=()=>{
             if(res.data.success){
                 toast.success(res.data.message);
                 navigate("/admin/managejobs");
-                console.log(res.data.job); 
             }
         }catch(error){
             console.log(error);
