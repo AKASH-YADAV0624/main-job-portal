@@ -271,7 +271,7 @@ export const duplicateJob = async (req, res) => {
             // Set the new job status to 'pending'
             slug: createUniqueSlug(req.body.title || job.title),
             created_by: req.id, // Set the same user who created the original job
-            createdAt: Date.now(), // Set the createdAt to the current time
+              createdAt: Date.now(), // Set the createdAt to the current time
             applications: [], // Reset the applications array to avoid copying over old applications
         });
 
