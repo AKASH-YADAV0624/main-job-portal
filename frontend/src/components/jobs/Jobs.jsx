@@ -116,6 +116,8 @@ const Jobs = () => {
           <meta name="twitter:title" content="Find Jobs | Search and Apply for Opportunities  on findmycareer.co.in." />
           <meta name="twitter:description" content={`Find the best job opportunities in your field findmycareer.co.in. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
           <meta name="twitter:image" content="https://findmycareer.co.in/job-portal-thumbnail.jpg" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="canonical" href="https://findmycareer.co.in/jobs" />
           {currentJobs.length > 0 && (
             <script type="application/ld+json">
               {JSON.stringify(jobListSchema)}
@@ -126,8 +128,7 @@ const Jobs = () => {
               {JSON.stringify(fallbackSchema)}
             </script>
           )}
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="canonical" href="https://findmycareer.co.in/jobs" />
+         
         </Helmet>
       </HelmetProvider>
       <Header />

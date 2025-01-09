@@ -22,7 +22,7 @@ export const generateSitemap = async (req, res) => {
         jobs.forEach(job => {
             urls.push({
                 url: [
-                    { loc: `${baseUrl}/jobs/${job.slug}` }, // Assuming 'slug' is a unique identifier for the job
+                    { loc: `${baseUrl}/description/${job.slug}` }, // Assuming 'slug' is a unique identifier for the job
                     { lastmod: job.updatedAt.toISOString() }, // Assuming 'updatedAt' is present in your schema
                     { priority: 0.6 }
                 ]

@@ -273,6 +273,7 @@ export const duplicateJob = async (req, res) => {
             created_by: req.id, // Set the same user who created the original job
               createdAt: Date.now(), // Set the createdAt to the current time
             applications: [], // Reset the applications array to avoid copying over old applications
+            views: 0, // Set views to 0 for the duplicated job
         });
 
         // Save the duplicated job

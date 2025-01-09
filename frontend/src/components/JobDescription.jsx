@@ -44,36 +44,52 @@ const JobDescription=()=>{
     }
     
   
-    useEffect(()=>{
-        const fetchSingleJobs= async()=>{
-            try{
-                const res= await axios.get(`${JOB_API_END_POINT}/getslug/${slug}`,{withCredentials:true});
-              
-                if(res.data.success){
-                    dispatch(setSingleJob(res.data.job));
-                    setIsApplied(res.data.job.applications.some(application=>application.applicant===user?._id))//ensure the state is in sync with fetch data
-                }
-            }catch(error){
-                console.log(error);
-            }
-        }
-        axios.get(`${JOB_API_END_POINT}/view/${singleJob?._id}`, { withCredentials: true })
-        .then((response) => {
-            if (response.data.success) {
-                console.log("Views incremented");
-            } else {
-                toast.error("Failed to increment views.");
-            }
-        })
-        .catch((error) => {
-            console.error("Error incrementing views:", error);
-            toast.error("An error occurred while incrementing views.");
-        });
-
-
-        fetchSingleJobs();
-    },[slug,dispatch,user?._id])
- 
+    useEffect(() => {
+      const fetchSingleJobs = async () => {
+          try {
+              const res = await axios.get(`${JOB_API_END_POINT}/getslug/${slug}`, { withCredentials: true });
+  
+              if (res.data.success) {
+                  // Update the single job state
+                  dispatch(setSingleJob(res.data.job));
+  
+                  // Check if the user has applied for the job
+                  setIsApplied(res.data.job.applications.some(application => application.applicant === user?._id));
+              }
+          } catch (error) {
+              console.error("Error fetching job details:", error);
+          }
+      };
+  
+      // Increment the job view count
+      const incrementViews = async () => {
+          if (singleJob?._id) {
+              try {
+                  const response = await axios.get(`${JOB_API_END_POINT}/view/${singleJob._id}`, { withCredentials: true });
+                  if (response.data.success) {
+                      console.log("Views incremented");
+                  } else {
+                      toast.error("Failed to increment views.");
+                  }
+              } catch (error) {
+                  console.error("Error incrementing views:", error);
+                  toast.error("An error occurred while incrementing views.");
+              }
+          }
+      };
+  
+      // Fetch the job details
+      fetchSingleJobs();
+  
+      // Delay the view incrementing slightly to ensure `singleJob` is updated
+      const timeout = setTimeout(() => {
+          incrementViews();
+      }, 500);
+  
+      // Cleanup timeout
+      return () => clearTimeout(timeout);
+  }, [slug, dispatch, user?._id]);
+  
 
     const daysAgoFunction=(mongodbTime)=>{
         const createdAt=new Date(mongodbTime);
@@ -121,7 +137,6 @@ const JobDescription=()=>{
       "play boy job",
       "asex job",
       "findmycareer",
-      "job portal",
     ]
       .filter(Boolean)
       .join(", ");
@@ -169,7 +184,7 @@ const JobDescription=()=>{
         <Helmet>
           <title>{singleJob?.title  || "Job Description"} - findmycareer.co.in</title>
           <meta name="description" content={dynamicDescription  || "Find your next career opportunity on findmycareer.co.in"} />
-           <meta name="keywords" content={`play boy job, play boy job since yesterday, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs,8505994986 ,${dynamicKeywords}`} />
+           <meta name="keywords" content={`play boy job, play boy job since yesterday, asex job, call boy job, findmycareer, job portal, urgent hiring for man, part-time jobs,8505994986 ,${dynamicKeywords}`} />
           <meta name="robots" content="index, follow, max-snippet: -1, max-video-preview: -1, max-image-preview: large" />
          
           
