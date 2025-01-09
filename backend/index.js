@@ -25,7 +25,7 @@ const corsOptions={
     const allowedOrigins=[
        'http://localhost:5173',
        'https://findmycareer.co.in',
-       'http://www.findmycareer.co.in', 
+       'https://www.findmycareer.co.in', 
     ];
     const isAllowed= allowedOrigins.includes(origin);
     callback(null, isAllowed ?origin:false);
