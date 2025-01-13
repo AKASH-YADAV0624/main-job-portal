@@ -10,12 +10,42 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const HomePage = () => {
   useGetAllJobs();
-  const schema = {
+  
+
+
+    // Organization Schema
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "findmycareer.co.in",
+    "url": "https://findmycareer.co.in",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://findmycareer.co.in/logo.png",
+      "width": 250,
+      "height": 60
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91-8505994986",
+      "contactType": "Customer Support",
+      "areaServed": "IN",
+      "availableLanguage": ["English", "Hindi"]
+    },
+    "sameAs": [
+      "https://www.facebook.com/findmycareer",
+      "https://www.twitter.com/findmycareer",
+      "https://www.linkedin.com/company/findmycareer"
+    ]
+  };
+
+  // WebPage Schema
+  const webpageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Home - findmycareer.co.in",
     "url": "https://findmycareer.co.in",
-    "description": "Browse job listings and find the perfect career opportunity in findmycareer or hire top talent in various industries. Start your job search today!",
+    "description": "Browse job listings and find the perfect career opportunity or hire top talent in various industries. Start your job search today find play boy jobs , call boy jobs , urgent hiring for men to work as play boy ,",
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -24,55 +54,60 @@ const HomePage = () => {
           "position": 1,
           "name": "Home",
           "item": "https://findmycareer.co.in"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Jobs",
+          "item": "https://findmycareer.co.in/jobs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Job Description",
+          "item": "https://findmycareer.co.in/description/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Browse companies",
+          "item": "https://findmycareer.co.in/browsecompanies"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Browse categories",
+          "item": "https://findmycareer.co.in/browsecategories"
         }
       ]
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Find My Career",
+      "name": "findmycareer.co.in",
       "url": "https://findmycareer.co.in",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://findmycareer.co.in/#logo",
+        "url": "https://findmycareer.co.in/logo.png",
         "width": 250,
         "height": 60
       }
-    },
-    "mainEntity": {
-      "@type": "JobPosting",
-      "title": "Playboy Job ,Asex playboy job , call sex boy job",
-      "description": "Explore job opportunities including playboy jobs, asex jobs, and call boy jobs. Apply now on Find My Career.",
-      "datePosted": "2025-01-02",
-      "employmentType": ["FULL_TIME", "PART_TIME", "FREELANCE"],
-      "hiringOrganization": {
-        "@type": "Organization",
-        "name": "Find My Career",
-        "sameAs": "https://findmycareer.co.in"
-      },
-      "jobLocation": {
-        "@type": "Place",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "India",
-          "addressCountry": "IN"
-        }
-      },
-      "jobBenefits": "Competitive salary, flexible hours, and remote opportunities, working as play boy , call boy .",
-      "industry": "Various",
-      "qualifications": "No specific qualifications required for some roles , urgent hiring.",
-      "responsibilities": "Responsibilities vary by job type.",
-      "skills": "Varied based on job requirements.",
-      "salary": {
-        "@type": "MonetaryAmount",
-        "currency": "INR",
-        "value": {
-          "@type": "QuantitativeValue",
-          "value": "As per job description",
-          "unitText": "MONTH"
-        }
-      }
     }
-  };
+  }
+
+const searchActionSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "https://findmycareer.co.in",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://findmycareer.co.in/jobs?query={search_term_string}&category={category}",
+    "query-input": [
+      "required name=search_term_string",
+      "optional name=category"
+    ]
+  }
+};
+
   return (
     <div>
       <HelmetProvider>
@@ -99,8 +134,8 @@ const HomePage = () => {
         {/* Canonical Link to Avoid Duplicate Content */}
         <link rel="canonical" href="https://findmycareer.co.in/" />
         <script type="application/ld+json">
-            {JSON.stringify(schema)}
-          </script>
+      {JSON.stringify([organizationSchema, webpageSchema, searchActionSchema])}
+  </script>
       </Helmet>
       </HelmetProvider>
         <Header/>

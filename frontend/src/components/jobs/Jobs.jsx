@@ -46,7 +46,7 @@ const Jobs = () => {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Job Listings",
-    "description": `Find and apply to job opportunities in findmycareer like ${searchedCategory || 'All Categories'}.`,
+    "description": `Find and apply to job opportunities on findmycareer.co.in like ${searchedCategory || 'All Categories'}.`,
     "itemListElement": currentJobs.map((job, index) => ({
       "@type": "ListItem",
       "position": index + 1,
@@ -59,7 +59,7 @@ const Jobs = () => {
         "employmentType": job.employmentType,
         "hiringOrganization": {
           "@type": "Organization",
-          "name": "Find My Career",
+          "name": "findmycareer.co.in",
           "sameAs": "https://findmycareer.co.in"
         },
         "jobLocation": {
@@ -70,24 +70,24 @@ const Jobs = () => {
             "addressCountry": "IN"
           }
         },
-        "jobBenefits": job.benefits,
-        "salary": {
+        "jobBenefits": job.benefits || "Not specified",  // Fallback value for job benefits
+        "salary": job.minimumSalary ? {
           "@type": "MonetaryAmount",
           "currency": "INR",
           "value": {
             "@type": "QuantitativeValue",
-            "value": job.salary,
+            "value": job.minimumSalary,
             "unitText": "MONTH"
           }
-        }
+        } : undefined // Only include salary if minimumSalary is present
       }
     }))
   };
-
+  
   const fallbackSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Jobs at Find My Career",
+    "name": "findmycareer.co.in",
     "description": "Explore job opportunities in various categories like play boy call boy job sex call boy job. No jobs found for the current filters.",
     "url": "https://findmycareer.co.in/jobs",
   };
