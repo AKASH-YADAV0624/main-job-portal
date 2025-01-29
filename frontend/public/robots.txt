@@ -3,7 +3,7 @@ Disallow: /admindashboard/
 Disallow: /login/
 Disallow: /profile/
 Disallow: /dashboard/
-Allow: /jobs/
+Allow: /Jobs/
 Allow: /  # Allow the homepage and other relevant pages
-Sitemap: https://www.findmycareer.co.in/sitemap.xml
+Sitemap: https://findmycareer.co.in/sitemap.xml
 Sitemap: https://findmycareer.co.in/dynamicsitemap.xml
