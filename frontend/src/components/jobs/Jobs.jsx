@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearchedCategory, setSearchedQuery } from "@/redux/jobSlice";
 import useGetAllJobs from "@/hooks/useGetAllJobs";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const Jobs = () => {
@@ -95,42 +96,58 @@ const Jobs = () => {
   // Pagination logic
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
   
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+      navigate(`/jobs?page=${page}`);
     }
   };
 
   return (
     <div className="w-full h-full">
       <HelmetProvider>
-        <Helmet>
-          <title>Find Jobs | Search and Apply for Opportunities - findmycareer.co.in</title>
-          <meta name="description" content={`Find the best job opportunities in your field on findmycareer.co.in. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
-          <meta name="keywords" content={` play boy job, play boy job since yesterday, asex job, call boy job, findmycareer, job portal, urgent hiring, freelance jobs, full-time jobs, part-time jobs, 8505994986 ,find jobs, job search, careers, job listings, ${searchedCategory || 'all jobs'}`} />
-          <meta name="robots" content="index, follow, max-snippet: -1, max-video-preview: -1, max-image-preview: large" />
-          <meta property="og:title" content="Find Jobs | Search and Apply for Opportunities  on findmycareer.co.in." />
-          <meta property="og:description" content={`Find the best job opportunities in your field findmycareer.co.in. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
-          <meta property="og:image" content="https://findmycareer.co.in/job-portal-thumbnail.jpg" />
-          <meta property="og:url" content="https://findmycareer.co.in/jobs" />
-          <meta name="twitter:title" content="Find Jobs | Search and Apply for Opportunities  on findmycareer.co.in." />
-          <meta name="twitter:description" content={`Find the best job opportunities in your field findmycareer.co.in. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
-          <meta name="twitter:image" content="https://findmycareer.co.in/job-portal-thumbnail.jpg" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="canonical" href="https://findmycareer.co.in/jobs" />
-          {currentJobs.length > 0 && (
-            <script type="application/ld+json">
-              {JSON.stringify(jobListSchema)}
-            </script>
-          )}
-          {currentJobs.length === 0 && (
-            <script type="application/ld+json">
-              {JSON.stringify(fallbackSchema)}
-            </script>
-          )}
-         
-        </Helmet>
-      </HelmetProvider>
+  <Helmet>
+    <title>Find Jobs | Search and Apply for Opportunities - findmycareer.co.in</title>
+    <meta name="description" content={`Find the best job opportunities in your field on findmycareer.co.in. Apply for jobs in categories like ${searchedCategory || 'All Categories'}.`} />
+    <meta name="keywords" content={`play boy job, call boy job, job portal, find jobs, careers, ${searchedCategory || 'all jobs'}`} />
+    <meta name="robots" content="index, follow, max-snippet: -1, max-video-preview: -1, max-image-preview: large" />
+    <meta property="og:title" content="Find Jobs | Search and Apply for Opportunities on findmycareer.co.in." />
+    <meta property="og:description" content={`Find job opportunities on findmycareer.co.in in categories like ${searchedCategory || 'All Categories'}.`} />
+    <meta property="og:image" content="https://findmycareer.co.in/job-portal-thumbnail.jpg" />
+    <meta property="og:url" content={`https://findmycareer.co.in/jobs?page=${currentPage}`} />
+    <meta name="twitter:title" content="Find Jobs | Search and Apply for Opportunities on findmycareer.co.in." />
+    <meta name="twitter:description" content={`Find job opportunities on findmycareer.co.in in categories like ${searchedCategory || 'All Categories'}.`} />
+    <meta name="twitter:image" content="https://findmycareer.co.in/job-portal-thumbnail.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {/* ✅ Dynamic Canonical URL for Pagination */}
+    <link rel="canonical" href={`https://findmycareer.co.in/jobs?page=${currentPage}`} />
+
+    {/* ✅ Pagination Meta Tags */}
+    {currentPage > 1 && (
+      <link rel="prev" href={`https://findmycareer.co.in/jobs?page=${currentPage - 1}`} />
+    )}
+    {currentPage < totalPages && (
+      <link rel="next" href={`https://findmycareer.co.in/jobs?page=${currentPage + 1}`} />
+    )}
+
+    {/* ✅ Job Posting Schema Only for Current Page */}
+    {currentJobs.length > 0 && (
+      <script type="application/ld+json">
+        {JSON.stringify(jobListSchema)}
+      </script>
+    )}
+    {currentJobs.length === 0 && (
+      <script type="application/ld+json">
+        {JSON.stringify(fallbackSchema)}
+      </script>
+    )}
+  </Helmet>
+</HelmetProvider>
       <Header />
       <div className="flex h-screen">
         <div className="w-1/2 overflow-auto max-h-screen max650:w-full">

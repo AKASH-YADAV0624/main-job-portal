@@ -4,9 +4,9 @@ import { setSearchedCategory, setSearchedQuery } from "@/redux/jobSlice";
 import useGetAllJobs from "@/hooks/useGetAllJobs";
 import Header from "./shared/Header";
 import Job from "./Job";
-import MapComponent from "./MapComponent";
 import { Button } from "./ui/button";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { useLocation, useNavigate } from "react-router-dom";
 const BrowseCategories = () => {
   useGetAllJobs();
   const [category, setCategory] = useState("");
@@ -31,7 +31,7 @@ const BrowseCategories = () => {
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
   const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
-// Job Posting Schema for ItemList
+
 // Job Posting Schema for ItemList
 const jobListSchema = {
   "@context": "https://schema.org",
@@ -86,10 +86,13 @@ const fallbackSchema = {
 
   // Pagination logic
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+  const navigate = useNavigate();
+  const location = useLocation();
   
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+      navigate(`/browsecategories?page=${page}`);
     }
   };
 
@@ -121,16 +124,25 @@ const fallbackSchema = {
               <meta property="og:type" content="website" />
               <meta
                 property="og:url"
-                content="https://findmycareer.co.in/browsecategories"
+                content={`https://findmycareer.co.in/browsecategories?page=${currentPage}`}
               />
               <meta
                 property="og:image"
                 content="https://findmycareer.co.in/assets/categories-preview.png"
               />
-              <link
-                rel="canonical"
-                href="https://findmycareer.co.in/browsecategories"
-              />
+             
+
+              
+    {/* ✅ Dynamic Canonical URL for Pagination */}
+    <link rel="canonical" href={`https://findmycareer.co.in/browsecategories?page=${currentPage}`} />
+
+{/* ✅ Pagination Meta Tags */}
+{currentPage > 1 && (
+  <link rel="prev" href={`https://findmycareer.co.in/browsecategories?page=${currentPage - 1}`} />
+)}
+{currentPage < totalPages && (
+  <link rel="next" href={`https://findmycareer.co.in/browsecategories?page=${currentPage + 1}`} />
+)}
               {currentJobs.length > 0 && (
             <script type="application/ld+json">
               {JSON.stringify(jobListSchema)}
